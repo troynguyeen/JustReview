@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_main.xml" value="0.3596014492753623" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/activity_login.xml" value="0.144" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/footer.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/header.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
