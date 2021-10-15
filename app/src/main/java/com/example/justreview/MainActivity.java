@@ -34,22 +34,21 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemSelect(int i) {
                 switch (i) {
                     case 0:
-                        swithPage(new MainActivity());
+                        switchPage(new MainActivity());
                         break;
                     case 1:
-                        swithPage(new FavoriteActivity());
+                        switchPage(new FavoriteActivity());
                         break;
                     case 2:
-                        swithPage(new CategoryActivity());
+                        switchPage(new CategoryActivity());
                         break;
                     case 3:
-                        swithPage(new UserLoginActivity());
+                        switchPage(new UserLoginActivity());
                         break;
                     default:
-                        swithPage(new MainActivity());
+                        switchPage(new MainActivity());
                         break;
                 }
-
                 return true;
             }
         });
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         return reviewList;
     }
 
-    public void swithPage(Activity act) {
+    public void switchPage(Activity act) {
         Intent intent = new Intent(this, act.getClass());
         startActivity(intent);
     }
