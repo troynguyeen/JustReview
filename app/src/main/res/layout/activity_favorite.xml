@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoriteActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/header" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="370dp"
         android:layout_height="130dp"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        tools:layout_editor_absoluteX="23dp">
 
         <ImageView
             android:id="@+id/imgCodeDao"
@@ -43,16 +49,10 @@
             android:layout_marginEnd="138dp"
             android:layout_marginBottom="40dp"
             android:layout_toEndOf="@+id/imgCodeDao"
-            android:background="@drawable/radius_yellow"
-            android:fontFamily="sans-serif-condensed"
+            android:background="@drawable/radius_pink"
+            android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="Sách IT" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TextView>
 
         <ImageView
             android:id="@+id/iconturned1"
@@ -124,7 +124,7 @@
             android:layout_marginBottom="40dp"
             android:layout_toEndOf="@+id/imgHackNao1500"
             android:background="@drawable/radius_pink"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="Sách Tiếng Anh" />
 
@@ -155,6 +155,12 @@
             android:layout_marginBottom="11dp"
             android:layout_toEndOf="@+id/imgHackNao1500"
             app:srcCompat="@drawable/ic_baseline_screen_share_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TextView>
 
     </RelativeLayout>
 
@@ -197,8 +203,8 @@
             android:layout_marginEnd="138dp"
             android:layout_marginBottom="40dp"
             android:layout_toEndOf="@+id/imgHoangTuBe"
-            android:background="@drawable/radius_red"
-            android:fontFamily="sans-serif-condensed"
+            android:background="@drawable/radius_pink"
+            android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="Sách Nổi Bật" />
 
