@@ -1,23 +1,58 @@
 package com.example.justreview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 public class MainActivity extends AppCompatActivity {
+    SmoothBottomBar smoothBottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupReviewViewPager();
+
+        smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
+
+        smoothBottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public boolean onItemSelect(int i) {
+                switch (i) {
+                    case 0:
+                        swithPage(new MainActivity());
+                        break;
+                    case 1:
+                        swithPage(new FavoriteActivity());
+                        break;
+                    case 2:
+                        swithPage(new CategoryActivity());
+                        break;
+                    case 3:
+                        swithPage(new UserLoginActivity());
+                        break;
+                    default:
+                        swithPage(new MainActivity());
+                        break;
+                }
+
+                return true;
+            }
+        });
     }
 
     public void goToFavouritePage(){
@@ -75,5 +110,10 @@ public class MainActivity extends AppCompatActivity {
         reviewList.add(book_hoang_tu_be);
 
         return reviewList;
+    }
+
+    public void swithPage(Activity act) {
+        Intent intent = new Intent(this, act.getClass());
+        startActivity(intent);
     }
 }

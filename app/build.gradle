@@ -41,6 +41,8 @@ dependencies {
 
     //Smooth Bottom Bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.3.4'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.70' // for use bottom nav
 
     //Scalable Size Units
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
