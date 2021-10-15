@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
         setupReviewViewPager();
     }
 
+    public void goToFavouritePage(){
+
+    }
     private void setupReviewViewPager() {
         ViewPager2 reviewViewPager = findViewById(R.id.reviewViewPager);
         reviewViewPager.setClipToPadding(false);
