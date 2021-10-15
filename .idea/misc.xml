@@ -17,11 +17,13 @@
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/font/font.xml" value="0.396875" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_all_review.xml" value="0.22" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_category.xml" value="0.25" />
-        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_favorite.xml" value="0.21603260869565216" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_favorite.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_login.xml" value="0.21603260869565216" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/fragment_favorite.xml" value="0.23796296296296296" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/header.xml" value="0.2630208333333333" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/item_container_book.xml" value="0.36666666666666664" />
+<<<<<<< HEAD
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25885416666666666" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/background.xml" value="0.2703125" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/background2.xml" value="0.2703125" />
@@ -55,6 +57,10 @@
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/fragment_user_login.xml" value="0.18432971014492755" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/header.xml" value="0.13632246376811594" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/test.xml" value="0.18177083333333333" />
+=======
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/navigation_bar.xml" value="0.23796296296296296" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33" />
+>>>>>>> 48b3b78f436deb2f6145b47a93570679921e7097
       </map>
     </option>
   </component>

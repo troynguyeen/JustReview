@@ -16,7 +16,8 @@
         android:layout_height="130dp"
         android:layout_marginTop="100dp"
         app:layout_constraintTop_toTopOf="@+id/include"
-        tools:layout_editor_absoluteX="23dp">
+        tools:layout_editor_absoluteX="23dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imgCodeDao"
@@ -90,7 +91,8 @@
         android:layout_height="130dp"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imgHackNao1500"
@@ -170,7 +172,8 @@
         android:layout_height="130dp"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-        tools:layout_editor_absoluteX="20dp">
+        tools:layout_editor_absoluteX="20dp"
+        tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imgHoangTuBe"
@@ -260,5 +263,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout4" />
+
+    <include
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        layout="@layout/navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

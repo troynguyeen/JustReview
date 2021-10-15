@@ -7,38 +7,13 @@
     android:background="@color/background"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textJustReview"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:text="JustReview"
-        android:textColor="@color/primary_label"
-        android:textSize="@dimen/_20sdp"
-        android:fontFamily="@font/futura_bold_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_22sdp"
-        android:layout_height="@dimen/_22sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:src="@drawable/ic_arrow_down"
-        android:tint="@color/primary_label"
-        app:layout_constraintBottom_toBottomOf="@id/textJustReview"
-        app:layout_constraintStart_toEndOf="@id/textJustReview"
-        app:layout_constraintTop_toTopOf="@id/textJustReview"/>
-    
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/_22sdp"
-        android:layout_height="@dimen/_22sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:src="@drawable/ic_notifications"
-        android:tint="@color/secondary_label"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        layout="@layout/header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layoutSearch"/>
 
     <LinearLayout
         android:id="@+id/layoutSearch"
@@ -54,7 +29,7 @@
         android:paddingTop="@dimen/_8sdp"
         android:paddingEnd="@dimen/_16sdp"
         android:paddingBottom="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/textJustReview">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_22sdp"
@@ -99,7 +74,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/_8sdp"
         app:cardElevation="3sp"
-        app:layout_constraintBottom_toTopOf="@id/smoothBottomBar">
+        app:layout_constraintBottom_toTopOf="@id/navigation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -203,24 +178,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textRecommended" />
 
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:id="@+id/smoothBottomBar"
+    <include
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:backgroundColor="@color/background"
-        app:iconSize="@dimen/_18sdp"
-        app:iconTint="@color/bottom_bar_icon_tint"
-        app:iconTintActive="@color/bottom_bar_icon_tint_active"
-        app:indicatorColor="@color/bottom_bar_indicator_color"
-        app:indicatorRadius="@dimen/_8sdp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu_bottom_navigation"
-        app:textColor="@color/bottom_bar_text_color"
-        app:textSize="@dimen/_10ssp" />
-
-
+        layout="@layout/navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
