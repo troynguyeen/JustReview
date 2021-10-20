@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setupReviewViewPager();
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
+        smoothBottomBar.setItemActiveIndex(0);
 
         smoothBottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
