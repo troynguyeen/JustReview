@@ -33,9 +33,21 @@
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/item_container_book.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/navigation_bar.xml" value="0.23796296296296296" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/drawable/ic_baseline_turned_in_24.xml" value="0.2703125" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_add_book.xml" value="0.2164855072463768" />
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_admin_infomation.xml" value="0.264" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_admin_login.xml" value="0.2164855072463768" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_allreview.xml" value="0.22146739130434784" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_category.xml" value="0.16983695652173914" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_favorite.xml" value="0.16983695652173914" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_list_adapter_favorite.xml" value="0.2164855072463768" />
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_login.xml" value="0.17481884057971014" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_main.xml" value="0.2164855072463768" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_register.xml" value="0.2164855072463768" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_sach_adapter.xml" value="0.2164855072463768" />
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_user_information.xml" value="0.3405443126308444" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/item_container_book.xml" value="0.2164855072463768" />
+        <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/navigation_bar.xml" value="0.2164855072463768" />
       </map>
     </option>
   </component>

@@ -12,14 +12,14 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingLeft="10sp"
-        android:paddingRight="10sp"
-        android:paddingTop="70sp">
+        android:paddingTop="70sp"
+        android:paddingRight="10sp">
 
         <ListView
             android:id="@+id/lvsach"
-            android:paddingTop="10sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
