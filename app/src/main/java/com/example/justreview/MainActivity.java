@@ -1,6 +1,9 @@
 package com.example.justreview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -10,7 +13,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +27,27 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     SmoothBottomBar smoothBottomBar;
+    AppCompatImageView menuIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupReviewViewPager();
+
+        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        menuIcon = findViewById(R.id.menuIcon);
+
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
+        });
+
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.setItemIconTintList(null);
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(0);

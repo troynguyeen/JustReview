@@ -31,6 +31,7 @@
         app:layout_constraintTop_toTopOf="@id/textJustReview"/>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/menuIcon"
         android:layout_width="@dimen/_22sdp"
         android:layout_height="@dimen/_22sdp"
         android:layout_marginTop="@dimen/_16sdp"
