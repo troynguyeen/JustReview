@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoryActivity">
-    <include layout="@layout/header"/>
+
+    <include
+        layout="@layout/header"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="32dp" />
 
     <ImageView
         android:id="@+id/imageView4"

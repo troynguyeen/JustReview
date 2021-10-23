@@ -22,13 +22,14 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="@dimen/_22sdp"
-        android:layout_height="@dimen/_22sdp"
-        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         android:src="@drawable/ic_arrow_down"
         android:tint="@color/primary_label"
         app:layout_constraintBottom_toBottomOf="@id/textJustReview"
         app:layout_constraintStart_toEndOf="@id/textJustReview"
         app:layout_constraintTop_toTopOf="@id/textJustReview"/>
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="@dimen/_22sdp"

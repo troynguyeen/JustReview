@@ -32,10 +32,10 @@
 
         <EditText
             android:id="@+id/userName"
-            android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
             android:layout_below="@id/textview"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:hint="Nhập tên tài khoản"
             android:inputType="text"
@@ -43,10 +43,10 @@
 
         <EditText
             android:id="@+id/password"
-            android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="44dp"
             android:layout_below="@+id/userName"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
@@ -54,20 +54,21 @@
 
         <EditText
             android:id="@+id/confirmPassword"
-            android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="44dp"
             android:layout_below="@+id/password"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:hint="Nhập lại mật khẩu"
             android:inputType="textPassword"
             android:minHeight="48dp" />
+
         <EditText
             android:id="@+id/realUserName"
-            android:layout_centerHorizontal="true"
             android:layout_width="@dimen/_200sdp"
             android:layout_height="44dp"
             android:layout_below="@+id/confirmPassword"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:hint="Nhập tên của bạn"
             android:inputType="text"
@@ -90,8 +91,8 @@
             android:layout_width="173dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/datePickerButton"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radioM"

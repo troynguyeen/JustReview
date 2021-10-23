@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustReview">
         <activity
+            android:name=".thongbao"
+            android:exported="true" />
+        <activity
             android:name=".Chitiet"
             android:exported="true" />
         <activity

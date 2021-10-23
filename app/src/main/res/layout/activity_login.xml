@@ -33,9 +33,9 @@
         <EditText
             android:id="@+id/userName"
             android:layout_width="@dimen/_200sdp"
-            android:layout_centerHorizontal="true"
             android:layout_height="68dp"
             android:layout_below="@id/textview"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:hint="Nhập tên tài khoản"
             android:inputType="text"
@@ -44,9 +44,9 @@
         <EditText
             android:id="@+id/password"
             android:layout_width="@dimen/_200sdp"
-            android:layout_centerHorizontal="true"
             android:layout_height="81dp"
             android:layout_below="@+id/userName"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
