@@ -1,7 +1,10 @@
 package com.example.justreview;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -10,29 +13,56 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
     SmoothBottomBar smoothBottomBar;
     AppCompatImageView menuIcon;
+
+    String dbName = "JustReviewDatabase.db";
+    String DB_Path =  "/databases/";
+
+    public SQLiteDatabase database = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //Chi xai cai nay khi ma database bi mat
+        //CopyDatabaseFromFolderAsset();
+
+        database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         setupReviewViewPager();
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
@@ -43,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(GravityCompat.END);
+
             }
         });
 
         NavigationView navigationView = findViewById(R.id.navigationView);
-        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(0);
@@ -77,6 +108,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void CopyDatabaseFromFolderAsset() {
+        File dbfile = getDatabasePath(dbName);
+        CopyDatabase();
+    }
+    private void CopyDatabase() {
+
+        try {
+
+            InputStream myInput = getAssets().open(dbName);
+            String outFileName = getApplicationInfo().dataDir+DB_Path+dbName;
+            File f = new File(getApplicationInfo().dataDir+DB_Path);
+
+            if(!f.exists()){
+                f.mkdir();
+
+            }
+            OutputStream myOutPut = new FileOutputStream(outFileName);
+            byte[] buffer = new byte[1024];
+            int len;
+
+            while ((len = myInput.read(buffer)) > 0){
+                myOutPut.write(buffer, 0, len);
+
+            }
+
+            myOutPut.flush();
+            myInput.close();
+            myOutPut.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            Log.e("Loi sao chep",e.toString());
+        }
+    }
     public void goToFavouritePage(){
 
     }
@@ -96,40 +161,26 @@ public class MainActivity extends AppCompatActivity {
         reviewViewPager.setAdapter(new ReviewAdapter(getReview()));
     }
 
+    void GetAllReview(){
+
+    }
+
     private List<Review> getReview() {
         List<Review> reviewList = new ArrayList<>();
 
-        Review book_codedaokysu = new Review();
-        book_codedaokysu.poster = R.drawable.book_codedao;
-        book_codedaokysu.name = "Code dạo ký sự";
-        book_codedaokysu.author = "Phạm Huy Hoàng";
-        book_codedaokysu.postDate = "03/10/2021";
-        book_codedaokysu.rating = 4.5f;
-        reviewList.add(book_codedaokysu);
 
-        Review book_hacknao1500tuvung = new Review();
-        book_hacknao1500tuvung.poster = R.drawable.book_hacknao1500tuvung;
-        book_hacknao1500tuvung.name = "HACK NÃO 1500";
-        book_hacknao1500tuvung.author = "STEPUP";
-        book_hacknao1500tuvung.postDate = "05/10/2021";
-        book_hacknao1500tuvung.rating = 4;
-        reviewList.add(book_hacknao1500tuvung);
+        Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
+        reviewList.clear();
 
-        Review book_hacknao_ielts = new Review();
-        book_hacknao_ielts.poster = R.drawable.book_hacknao_ielts;
-        book_hacknao_ielts.name = "HACK NÃO IELTS";
-        book_hacknao_ielts.author = "STEPUP";
-        book_hacknao_ielts.postDate = "10/10/2021";
-        book_hacknao_ielts.rating = 3.5f;
-        reviewList.add(book_hacknao_ielts);
-
-        Review book_hoang_tu_be = new Review();
-        book_hoang_tu_be.poster = R.drawable.book_hoang_tu_be;
-        book_hoang_tu_be.name = "Hoàng tử bé";
-        book_hoang_tu_be.author = "Antoine De Saint-Exupéry";
-        book_hoang_tu_be.postDate = "01/11/2021";
-        book_hoang_tu_be.rating = 4.5f;
-        reviewList.add(book_hoang_tu_be);
+        while (cursor.moveToNext()){
+           Review book = new Review();
+           book.poster = R.drawable.book_codedao;
+           book.name = cursor.getString(1);
+           book.author = cursor.getString(5);
+           book.postDate = "12/10/2021";
+           book.rating = cursor.getFloat(4);
+           reviewList.add(book);
+        }
 
         return reviewList;
     }
@@ -137,5 +188,28 @@ public class MainActivity extends AppCompatActivity {
     public void switchPage(Activity act) {
         Intent intent = new Intent(this, act.getClass());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+        menuItem.setChecked(true);
+
+        switch (menuItem.getItemId()) {
+            case R.id.sideMenuHome:
+                switchPage(new MainActivity());
+                break;
+            case R.id.sideMenuShare:
+                // do you click actions for the second selection
+                break;
+            case R.id.sideMenuSetting:
+                // do you click actions for the third selection
+                break;
+            case R.id.sideMenuAddReview:
+                switchPage(new AddBook());
+                break;
+        }
+
+        return true;
     }
 }
