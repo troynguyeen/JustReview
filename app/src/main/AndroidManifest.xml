@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustReview">
         <activity
+            android:name=".Edit"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/FullScreen">
