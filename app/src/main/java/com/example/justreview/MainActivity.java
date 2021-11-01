@@ -58,9 +58,12 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //Chi xai cai nay khi ma database bi mat hoac khong co
+        //Cho no chay 1 lan thoi roi comment lai
 
-        //Chi xai cai nay khi ma database bi mat
         //CopyDatabaseFromFolderAsset();
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         setupReviewViewPager();
@@ -111,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements
     private void CopyDatabaseFromFolderAsset() {
         File dbfile = getDatabasePath(dbName);
         CopyDatabase();
+        if(!dbfile.exists()){
+            CopyDatabase();
+        }else{
+            dbfile.delete();
+            CopyDatabase();
+        }
+
     }
     private void CopyDatabase() {
 
