@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menuHome"
+        android:id="@+id/sideMenuHome"
         android:icon="@drawable/ic_home"
         android:title="Home" />
 
     <item
-        android:id="@+id/menuAllReview"
+        android:id="@+id/sideMenuAllReview"
         android:icon="@drawable/ic_all_review"
         android:title="All Review" />
+
+    <item
+        android:id="@+id/sideMenuAddReview"
+        android:icon="@drawable/ic_plus"
+        android:title="Add New Review" />
 
     <item android:title="Profile">
         <menu>
 
             <item
-                android:id="@+id/menuLogout"
+                android:id="@+id/sideMenuLogout"
                 android:icon="@drawable/ic_profile"
                 android:title="Logout" />
 
@@ -25,12 +30,12 @@
         <menu>
 
             <item
-                android:id="@+id/menuShare"
+                android:id="@+id/sideMenuShare"
                 android:icon="@drawable/ic_share"
                 android:title="Share" />
 
             <item
-                android:id="@+id/menuSetting"
+                android:id="@+id/sideMenuSetting"
                 android:icon="@drawable/ic_settings"
                 android:title="Setting" />
 
