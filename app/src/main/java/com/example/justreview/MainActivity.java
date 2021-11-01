@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements
 
         while (cursor.moveToNext()){
            Review book = new Review();
-           book.poster = R.drawable.book_codedao;
+           book.image = cursor.getBlob(3);
            book.name = cursor.getString(1);
            book.author = cursor.getString(5);
            book.postDate = "12/10/2021";

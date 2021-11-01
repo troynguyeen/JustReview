@@ -1,5 +1,7 @@
 package com.example.justreview;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +59,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         }
 
         void setReview(Review review) {
-            imagePoster.setImageResource(review.poster);
+            if(review.image != null){
+                byte[] bookImage = review.image;
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bookImage, 0, bookImage.length);
+                imagePoster.setImageBitmap(bitmap);
+            }else{
+                imagePoster.setImageResource(0);
+            }
+
             textName.setText(review.name);
             textAuthor.setText(review.author);
             textPostDate.setText(review.postDate);
