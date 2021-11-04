@@ -4,15 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class RegisterActivity extends AppCompatActivity
 {
+    EditText username, password, repassword, realname;
+    Button signup, signin;
+    String DB = "JustReviewDatabase.db";
+
+    public SQLiteDatabase database = null;
+
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
 
@@ -24,6 +36,73 @@ public class RegisterActivity extends AppCompatActivity
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
+
+        username = (EditText) findViewById(R.id.userName);
+        password = (EditText) findViewById(R.id.password);
+        repassword = (EditText) findViewById(R.id.confirmPassword);
+        realname = (EditText) findViewById(R.id.realUserName);
+        signup = (Button) findViewById(R.id.btnRegister);
+        signin = (Button) findViewById(R.id.btnNextLogin);
+        database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(username.getText().toString().trim().length()!=0 && password.getText().toString().trim().length()!=0 && realname.getText().toString().trim().length()!=0){
+                    ContentValues values = new ContentValues();
+                    values.put("TenTK", username.getText().toString().trim());
+                    values.put("MatKhau", password.getText().toString().trim());
+                    values.put("TenUser", realname.getText().toString().trim());
+
+                    database.insert("TaiKhoanUser",null, values );
+
+                    Toast.makeText(getApplicationContext(), "Thêm mới thành công", Toast.LENGTH_SHORT).show();
+                    username.setText("");
+                    password.setText("");
+                    realname.setText("");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ các trường thông tin", Toast.LENGTH_SHORT).show();
+                }
+            }
+            });
+//            @Override
+//            public void onClick(View view) {
+//                String user = username.getText().toString();
+//                String pass = password.getText().toString();
+//                String repass = repassword.getText().toString();
+//
+//                if (user.equals("")||pass.equals("")||repass.equals(""))
+//                    Toast.makeText(RegisterActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+//                else {
+//                    if (pass.equals(repass)) {
+//                        Boolean checkuser = DB.checkusername(user);
+//                        if (checkuser == false) {
+//                            Boolean insert = DB.insertData(user, pass);
+//                            if (insert == true) {
+//                                Toast.makeText(RegisterActivity.this, "Đăng ký thành công",Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                                startActivity(intent);
+//                            } else {
+//                                Toast.makeText(RegisterActivity.this,"Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                        else {
+//                            Toast.makeText(RegisterActivity.this,"Tên tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+//                        }
+//                    } else {
+//                        Toast.makeText(RegisterActivity.this,"Mật khẩu không phù hợp", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
+
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private String getTodaysDate()
