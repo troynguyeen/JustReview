@@ -14,7 +14,7 @@
             android:name=".Edit"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/FullScreen">
             <intent-filter>

@@ -19,7 +19,6 @@ public class UserLoginActivity extends FragmentActivity {
 
     EditText username, password;
     Button btnlogin;
-    DBLoginRegister DB;
 
     SmoothBottomBar smoothBottomBar;
 
@@ -31,28 +30,27 @@ public class UserLoginActivity extends FragmentActivity {
         username = (EditText) findViewById(R.id.userName1);
         password = (EditText) findViewById(R.id.password1);
         btnlogin = (Button) findViewById(R.id.btnLogin);
-        DB = new DBLoginRegister(this);
 
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-
-                if (user.equals("")||pass.equals(""))
-                    Toast.makeText(UserLoginActivity.this,"Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                else {
-                    Boolean checkuserpass = DB.checkusernamepassword(user, pass);
-                    if (checkuserpass == true) {
-                        Toast.makeText(UserLoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(UserLoginActivity.this,"Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
+//        btnlogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String user = username.getText().toString();
+//                String pass = password.getText().toString();
+//
+//                if (user.equals("")||pass.equals(""))
+//                    Toast.makeText(UserLoginActivity.this,"Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+//                else {
+//                    Boolean checkuserpass = DB.checkusernamepassword(user, pass);
+//                    if (checkuserpass == true) {
+//                        Toast.makeText(UserLoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        Toast.makeText(UserLoginActivity.this,"Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(3);
