@@ -1,147 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".thongbao">
 
     <include
         android:id="@+id/include3"
         layout="@layout/header"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <RelativeLayout
-        android:layout_width="413dp"
-        android:layout_height="613dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include3">
-
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/futura_bold_2"
-            android:text="Thông báo"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
-            android:text="Mới"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="120dp"
-            android:clickable="true"
-            app:backgroundTint="#949095"
-            app:srcCompat="@drawable/ic_profile" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="220dp"
-            android:clickable="true"
-            app:backgroundTint="#949095"
-            app:srcCompat="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="273dp"
-            android:layout_height="78dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="120dp"
-            android:text="Bảo Khôi đã thích bài viết của bạn"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="273dp"
-            android:layout_height="78dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="220dp"
-            android:text="Quốc Đạt đã bình luận vào bài viết"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="300dp"
-            android:text="Hôm qua"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="350dp"
-            android:clickable="true"
-            app:backgroundTint="#949095"
-            app:srcCompat="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="273dp"
-            android:layout_height="78dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="350dp"
-            android:text="Quốc Hòa đã nhắc đến bạn trong bài bình luận"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="273dp"
-            android:layout_height="78dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="450dp"
-            android:text="Chí Thành đã đánh giá bài viết của bạn"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16ssp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="450dp"
-            android:clickable="true"
-            app:backgroundTint="#949095"
-            app:srcCompat="@drawable/ic_profile" />
-
-
-    </RelativeLayout>
-
-    <include
-        android:id="@+id/navigation"
-        layout="@layout/navigation_bar"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="16dp" />
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_height="match_parent"
+        android:id="@+id/listView">
+    </ListView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

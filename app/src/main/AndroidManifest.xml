@@ -31,9 +31,9 @@
         <activity
             android:name=".CategoryActivity"
             android:exported="true" />
-        <activity
-            android:name=".UserLoginActivity"
+        <activityvity
             android:exported="true" />
+        android:name=".UserLoginActi
     </application>
 
 </manifest>
