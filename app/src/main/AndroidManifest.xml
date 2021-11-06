@@ -13,16 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustReview">
         <activity
-            android:name=".adapter_comment"
-            android:exported="true" />
-        <activity
-            android:name=".CommentDetails"
-            android:exported="true" />
-        <activity
             android:name=".Edit"
             android:exported="true" />
         <activity
-            android:name=".List"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/FullScreen">
             <intent-filter>
