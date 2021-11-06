@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentDetails">
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/header" />
+     />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="411dp"
+        android:layout_height="398dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            app:srcCompat="@drawable/book_codedao" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp"
+            android:text="[Review sách] Code dạo kí sự "
+            android:textColor="@color/primary_label"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="382dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="210dp"
+            android:text="Tác giả định hướng đối tượng của cuốn sách này là những em học sinh đang lựa chọn trường đại học thuộc ngành IT, sinh viên ngành IT đang học, sắp ra trường hay đang đi những bước đầu trong sự nghiệp của ngành IT. Vậy nên những ý kiến của tác giả trong phần này tập trung chủ yếu vào giới thiệu khái quát nghề lập trình, định hướng con đường cũng như những lời khuyên về học tập, làm việc"
+            android:textColor="@color/primary_label"
+            android:textSize="@dimen/_15sdp" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_280sdp"
+            android:text="BÌNH LUẬN"
+            android:textColor="@color/teal_700"
+            android:textSize="15dp" />
+
+    </RelativeLayout>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="450dp"
+        android:paddingLeft="10sp"
+        android:paddingTop="80dp"
+        android:paddingRight="10sp"
+        >
+        <ListView
+            android:id="@+id/lvComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/activity_adapter_comment"/>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
