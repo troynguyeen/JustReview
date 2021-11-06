@@ -32,7 +32,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/photo"
+                    android:id="@+id/photoDetail"
                     android:layout_width="0dp"
                     android:layout_height="300dp"
                     android:layout_marginTop="72dp"
@@ -56,7 +56,32 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/photo" />
+                    app:layout_constraintTop_toBottomOf="@id/photoDetail" />
+
+                <TextView
+                    android:id="@+id/author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Toi di code dao"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/book_name" />
+                <TextView
+                    android:id="@+id/the_loai"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Toi di code dao"
+                    android:textColor="#000000"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/author_name" />
 
                 <TextView
                     android:id="@+id/book_description"
@@ -67,7 +92,7 @@
                     android:layout_marginTop="4dp"
                     android:text="description here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\ndescription here\n"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/book_name" />
+                    app:layout_constraintTop_toBottomOf="@id/the_loai" />
 
 
                 <ListView
@@ -81,7 +106,7 @@
                     tools:listitem="@layout/activity_adapter_comment" />
 
                 <Button
-                    android:id="@+id/addToCartButton"
+                    android:id="@+id/ReturnButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
