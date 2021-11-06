@@ -1,7 +1,9 @@
 package com.example.justreview;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ public class CommentDetails extends AppCompatActivity {
     TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
     ImageView photo;
     Review review;
-    Button returnButton;
+    Button returnButton, deleteButton;
     public SQLiteDatabase database = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class CommentDetails extends AppCompatActivity {
         photo = (ImageView) findViewById(R.id.photoDetail);
         theLoaiV = (TextView)findViewById(R.id.the_loai);
         returnButton = (Button)findViewById(R.id.ReturnButton);
-
+        deleteButton = (Button)findViewById(R.id.buttonDelete);
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,8 +63,47 @@ public class CommentDetails extends AppCompatActivity {
                 review.rating = cursor.getFloat(4);
                 review.description = cursor.getString(2);
                 review.theloai = cursor.getInt(6);
+                review.id = cursor.getInt(0);
             }
         }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Xóa review");
+        builder.setMessage("Bạn có muốn xóa bài review này?");
+
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                database.delete("DanhSachReview", "ID=?", new String[]{Integer.toString(review.id)});
+                Toast.makeText(getApplicationContext(), "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                finish();
+                startActivity(intent);
+
+
+            }
+        });
+
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+
+
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alert.show();
+            }
+        });
 
         Cursor cursor2 = database.query("DanhMuc", null, null, null, null, null, null);
         while (cursor2.moveToNext()){
