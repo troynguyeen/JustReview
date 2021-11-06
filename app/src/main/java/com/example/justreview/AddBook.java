@@ -78,6 +78,7 @@ public class AddBook extends AppCompatActivity implements
 
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+
         spDanhmuc=(Spinner) findViewById(R.id.spDanhMuc);
         ArrayList<String> danhmuc =new ArrayList<String>();
 
