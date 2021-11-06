@@ -123,6 +123,10 @@ public class AddBook extends AppCompatActivity implements
                     txtAuthor.setText("");
                     txtNoiDung.setText("");
                     bookImg.setImageResource(R.drawable.ic_plus);
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    finish();
+                    startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ các trường thông tin", Toast.LENGTH_SHORT).show();
                 }
