@@ -21,10 +21,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,13 +47,14 @@ import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener, ReviewAdapter.OnReviewListener, Serializable {
     SmoothBottomBar smoothBottomBar;
     AppCompatImageView menuIcon;
-
+    ViewPager2  reviewViewPager;
     String dbName = "JustReviewDatabase.db";
     String DB_Path =  "/databases/";
-
+    ReviewAdapter reviewAdapter;
+    List<Review> reviewList;
     public SQLiteDatabase database = null;
 
 
@@ -64,9 +69,12 @@ public class MainActivity extends AppCompatActivity implements
 
         // CopyDatabaseFromFolderAsset();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+        reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         setupReviewViewPager();
+
+
+
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -156,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
     private void setupReviewViewPager() {
-        ViewPager2 reviewViewPager = findViewById(R.id.reviewViewPager);
         reviewViewPager.setClipToPadding(false);
         reviewViewPager.setClipChildren(false);
         reviewViewPager.setOffscreenPageLimit(4);
@@ -168,15 +175,15 @@ public class MainActivity extends AppCompatActivity implements
             page.setScaleY(0.85f + r * 0.15f);
         }));
         reviewViewPager.setPageTransformer(compositePageTransformer);
-        reviewViewPager.setAdapter(new ReviewAdapter(getReview()));
+
+        reviewViewPager.setAdapter(new ReviewAdapter(getReview(), this));
+
+
     }
 
-    void GetAllReview(){
-
-    }
 
     private List<Review> getReview() {
-        List<Review> reviewList = new ArrayList<>();
+        reviewList = new ArrayList<>();
 
 
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
@@ -189,6 +196,9 @@ public class MainActivity extends AppCompatActivity implements
            book.author = cursor.getString(5);
            book.postDate = "12/10/2021";
            book.rating = cursor.getFloat(4);
+           book.description = cursor.getString(2);
+           book.id = cursor.getInt(0);
+           book.theloai = cursor.getInt(6);
            reviewList.add(book);
         }
 
@@ -221,5 +231,13 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         return true;
+    }
+
+    @Override
+    public void onReviewClick(int position) {
+        Intent intent = new Intent(this, CommentDetails.class);
+        Review review = reviewList.get(position);
+        intent.putExtra("ID", review.id);
+        startActivity(intent);
     }
 }

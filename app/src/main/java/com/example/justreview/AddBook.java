@@ -40,7 +40,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class AddBook extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener  {
     Spinner spDanhmuc;
     MainActivity mainActivity;
     AppCompatImageView menuIcon;
@@ -110,18 +110,11 @@ public class AddBook extends AppCompatActivity implements
                     values.put("NoiDung", txtNoiDung.getText().toString().trim());
                     values.put("TacGia", txtAuthor.getText().toString().trim());
                     values.put("AnhSach",imageViewToByte(bookImg));
-                    spDanhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            values.put("IDDanhMuc", position);
-                            //Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-                        }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+                    int idDanhMuc = spDanhmuc.getSelectedItemPosition();
+                    values.put("IDDanhMuc", idDanhMuc);
+                    //Toast.makeText(getApplicationContext(), String.valueOf(idDanhMuc), Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
 
                     database.insert("DanhSachReview",null, values );
 

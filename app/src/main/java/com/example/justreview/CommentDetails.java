@@ -2,20 +2,89 @@ package com.example.justreview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class CommentDetails extends AppCompatActivity {
     ListView lvComment;
     ArrayList<Comment> comments;
+    String dbName = "JustReviewDatabase.db";
+    TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
+    ImageView photo;
+    Review review;
+    Button returnButton;
+    public SQLiteDatabase database = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_details);
-
+        reviewNameV = (TextView)findViewById(R.id.book_name);
+        descriptionV = (TextView)findViewById(R.id.book_description);
         lvComment = (ListView) findViewById(R.id.lvComment);
+        authorNameV = (TextView) findViewById(R.id.author_name);
+        photo = (ImageView) findViewById(R.id.photoDetail);
+        theLoaiV = (TextView)findViewById(R.id.the_loai);
+        returnButton = (Button)findViewById(R.id.ReturnButton);
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
+
+        review = new Review();
+
+        Bundle extras = getIntent().getExtras();
+        database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
+        Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
+
+        while (cursor.moveToNext()){
+            if(cursor.getInt(0) == extras.getInt("ID")){
+                review.image = cursor.getBlob(3);
+                review.name = cursor.getString(1);
+                review.author = cursor.getString(5);
+                review.rating = cursor.getFloat(4);
+                review.description = cursor.getString(2);
+                review.theloai = cursor.getInt(6);
+            }
+        }
+
+        Cursor cursor2 = database.query("DanhMuc", null, null, null, null, null, null);
+        while (cursor2.moveToNext()){
+            if(cursor2.getInt(0) == review.theloai){
+                theLoaiV.setText(cursor2.getString(1));
+            }
+
+        }
+
+
+        if(review.image != null){
+            byte[] bookImage = review.image;
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bookImage, 0, bookImage.length);
+            photo.setImageBitmap(bitmap);
+        }else{
+            photo.setImageResource(0);
+        }
+
+        reviewNameV.setText(review.name);
+        descriptionV.setText(review.description);
+        authorNameV.setText(review.author);
+
+
         comments = new ArrayList<Comment>();
         Comment comment = new Comment("Cong","Bai viet rat hay",R.drawable.usericon );
         comments.add(comment);
@@ -28,5 +97,6 @@ public class CommentDetails extends AppCompatActivity {
 
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
+
     }
 }

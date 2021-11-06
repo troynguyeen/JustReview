@@ -36,6 +36,9 @@
         <activity
             android:name=".AddBook"
             android:exported="true" />
+        <activity
+            android:name=".CommentDetails"
+            android:exported="true" />
     </application>
 
 </manifest>
