@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -20,7 +23,10 @@ import java.util.Calendar;
 public class RegisterActivity extends AppCompatActivity
 {
     EditText username, password, repassword, realname;
-    Button signup, signin;
+    Button signup, signin, btnDate;
+    RadioGroup radioGrp;
+    RadioButton radioButton;
+
     String DB = "JustReviewDatabase.db";
 
     public SQLiteDatabase database = null;
@@ -43,58 +49,48 @@ public class RegisterActivity extends AppCompatActivity
         realname = (EditText) findViewById(R.id.realUserName);
         signup = (Button) findViewById(R.id.btnRegister);
         signin = (Button) findViewById(R.id.btnNextLogin);
+        btnDate = (Button) findViewById(R.id.datePickerButton);
+
+        radioGrp = (RadioGroup) findViewById(R.id.radioGrp);
+
+
         database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(username.getText().toString().trim().length()!=0 && password.getText().toString().trim().length()!=0 && realname.getText().toString().trim().length()!=0){
-                    ContentValues values = new ContentValues();
-                    values.put("TenTK", username.getText().toString().trim());
-                    values.put("MatKhau", password.getText().toString().trim());
-                    values.put("TenUser", realname.getText().toString().trim());
+                String user = username.getText().toString();
+                String pass = password.getText().toString();
+                String repass = repassword.getText().toString();
+                String name = realname.getText().toString();
+                String date = btnDate.getText().toString();
+                String sex = radioButton.getText().toString();
 
-                    database.insert("TaiKhoanUser",null, values );
+                int selectedId = radioGrp.getCheckedRadioButtonId();
+                radioButton = findViewById(selectedId);
 
-                    Toast.makeText(getApplicationContext(), "Thêm mới thành công", Toast.LENGTH_SHORT).show();
-                    username.setText("");
-                    password.setText("");
-                    realname.setText("");
-                }else{
-                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ các trường thông tin", Toast.LENGTH_SHORT).show();
+                if (user.equals("")||pass.equals("")||repass.equals("")||name.equals("")||date.equals("")||sex.equals(""))
+                    Toast.makeText(RegisterActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
+                else {
+                    if (pass.equals(repass)) {
+                        Boolean checkuser = checkusername(user);
+                        if (checkuser == false) {
+                            Boolean insert = insertData(user, pass, repass, name, date, sex);
+                            if (insert == true) {
+                                Toast.makeText(RegisterActivity.this, "Đăng ký thành công",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(RegisterActivity.this,"Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else {
+                            Toast.makeText(RegisterActivity.this,"Tên tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity.this,"Mật khẩu không phù hợp", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-            });
-//            @Override
-//            public void onClick(View view) {
-//                String user = username.getText().toString();
-//                String pass = password.getText().toString();
-//                String repass = repassword.getText().toString();
-//
-//                if (user.equals("")||pass.equals("")||repass.equals(""))
-//                    Toast.makeText(RegisterActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
-//                else {
-//                    if (pass.equals(repass)) {
-//                        Boolean checkuser = DB.checkusername(user);
-//                        if (checkuser == false) {
-//                            Boolean insert = DB.insertData(user, pass);
-//                            if (insert == true) {
-//                                Toast.makeText(RegisterActivity.this, "Đăng ký thành công",Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//                                startActivity(intent);
-//                            } else {
-//                                Toast.makeText(RegisterActivity.this,"Đăng ký thất bại", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                        else {
-//                            Toast.makeText(RegisterActivity.this,"Tên tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
-//                        }
-//                    } else {
-//                        Toast.makeText(RegisterActivity.this,"Mật khẩu không phù hợp", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
+        });
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,5 +175,32 @@ public class RegisterActivity extends AppCompatActivity
     public void openDatePicker(View view)
     {
         datePickerDialog.show();
+    }
+
+    public Boolean insertData(String username, String password, String repassword, String name, String date, String sex){
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("TenTK", username);
+        contentValues.put("MatKhau", password);
+        contentValues.put("NhapLaiMatKhau", repassword);
+        contentValues.put("TenUser", name);
+        contentValues.put("NgaySinh", date);
+        contentValues.put("GioiTinh", sex);
+        long result = database.insert("TaiKhoanUser", null, contentValues);
+        if(result==-1) return false;
+        else
+            return true;
+    }
+
+    public Boolean checkusername(String username) {
+        Cursor cursor = database.rawQuery("Select * from TaiKhoanUser where TenTK = ?", new String[]{username});
+        if (cursor.getCount() > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public void checkButton(View v){
+        int selectedId = radioGrp.getCheckedRadioButtonId();
+        radioButton = findViewById(selectedId);
     }
 }
