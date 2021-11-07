@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
         //Chi xai cai nay khi ma database bi mat hoac khong co
         //Cho no chay 1 lan thoi roi comment lai
 
-        // CopyDatabaseFromFolderAsset();
+        //CopyDatabaseFromFolderAsset();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
@@ -177,14 +177,10 @@ public class MainActivity extends AppCompatActivity implements
         reviewViewPager.setPageTransformer(compositePageTransformer);
 
         reviewViewPager.setAdapter(new ReviewAdapter(getReview(), this));
-
-
     }
-
 
     private List<Review> getReview() {
         reviewList = new ArrayList<>();
-
 
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
         reviewList.clear();
