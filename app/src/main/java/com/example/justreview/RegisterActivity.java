@@ -52,8 +52,7 @@ public class RegisterActivity extends AppCompatActivity
         btnDate = (Button) findViewById(R.id.datePickerButton);
 
         radioGrp = (RadioGroup) findViewById(R.id.radioGrp);
-        int selectedId = radioGrp.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedId);
+
 
         database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
 
@@ -66,6 +65,9 @@ public class RegisterActivity extends AppCompatActivity
                 String name = realname.getText().toString();
                 String date = btnDate.getText().toString();
                 String sex = radioButton.getText().toString();
+
+                int selectedId = radioGrp.getCheckedRadioButtonId();
+                radioButton = findViewById(selectedId);
 
                 if (user.equals("")||pass.equals("")||repass.equals("")||name.equals("")||date.equals("")||sex.equals(""))
                     Toast.makeText(RegisterActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
@@ -195,5 +197,10 @@ public class RegisterActivity extends AppCompatActivity
             return true;
         else
             return false;
+    }
+
+    public void checkButton(View v){
+        int selectedId = radioGrp.getCheckedRadioButtonId();
+        radioButton = findViewById(selectedId);
     }
 }
