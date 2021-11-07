@@ -3,6 +3,7 @@ package com.example.justreview;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommentDetails extends AppCompatActivity {
     ListView lvComment;
@@ -40,6 +42,7 @@ public class CommentDetails extends AppCompatActivity {
         theLoaiV = (TextView)findViewById(R.id.the_loai);
         returnButton = (Button)findViewById(R.id.ReturnButton);
         deleteButton = (Button)findViewById(R.id.buttonDelete);
+
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,5 +143,14 @@ public class CommentDetails extends AppCompatActivity {
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
 
+    }
+
+
+    public void edid(View view) {
+        Intent intent = new Intent(this, Edit.class);
+
+        intent.putExtra("ID", review.id);
+
+        startActivity(intent);
     }
 }
