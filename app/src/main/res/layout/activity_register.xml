@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_weight="1"
-                android:checked="true"
+                android:checked="false"
                 android:text="Nam"
                 android:textSize="14dp" />
 
