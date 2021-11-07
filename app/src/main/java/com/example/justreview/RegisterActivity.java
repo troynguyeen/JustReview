@@ -64,11 +64,11 @@ public class RegisterActivity extends AppCompatActivity
                 String repass = repassword.getText().toString();
                 String name = realname.getText().toString();
                 String date = btnDate.getText().toString();
-                String sex = radioButton.getText().toString();
+
 
                 int selectedId = radioGrp.getCheckedRadioButtonId();
                 radioButton = findViewById(selectedId);
-
+                String sex = radioButton.getText().toString();
                 if (user.equals("")||pass.equals("")||repass.equals("")||name.equals("")||date.equals("")||sex.equals(""))
                     Toast.makeText(RegisterActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
                 else {
