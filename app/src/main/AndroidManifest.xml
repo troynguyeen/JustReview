@@ -16,11 +16,7 @@
             android:name=".Edit"
             android:exported="true" />
         <activity
-<<<<<<< HEAD
-            android:name=".MainActivity"
-=======
-            android:name=".RegisterActivity"
->>>>>>> e510c36c523770d881d5ff98ced79bee5b59f5d7
+            android:name=".UserLoginActivity"
             android:exported="true"
             android:theme="@style/FullScreen">
             <intent-filter>
@@ -34,14 +30,15 @@
         <activity
             android:name=".CategoryActivity"
             android:exported="true" />
-        <activity
-            android:name=".UserLoginActivity"
-            android:exported="true" />
+
         <activity
             android:name=".AddBook"
             android:exported="true" />
         <activity
             android:name=".CommentDetails"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterActivity"
             android:exported="true" />
     </application>
 
