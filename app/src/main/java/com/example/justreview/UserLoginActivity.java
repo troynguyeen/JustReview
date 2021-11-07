@@ -52,7 +52,6 @@ public class UserLoginActivity extends FragmentActivity {
                     if (checkuserpass==true) {
                         Toast.makeText(UserLoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        finish();
                         startActivity(intent);
                     } else {
                         Toast.makeText(UserLoginActivity.this,"Nhập sai Tài khoản hoặc Mật khẩu", Toast.LENGTH_SHORT).show();
