@@ -177,8 +177,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_16sdp"
             android:text="View all"
-            android:textColor="@color/secondary_label"
+            android:textColor="@color/bottom_bar_icon_tint_active"
             android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/textRecommended"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/textRecommended" />

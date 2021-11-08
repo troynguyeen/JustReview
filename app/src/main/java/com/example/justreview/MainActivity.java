@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -56,12 +57,21 @@ public class MainActivity extends AppCompatActivity implements
     ReviewAdapter reviewAdapter;
     List<Review> reviewList;
     public SQLiteDatabase database = null;
-
+    TextView textViewAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textViewAll = (TextView) findViewById(R.id.textViewAll);
+
+        textViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchPage(new AllReview());
+            }
+        });
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Chi xai cai nay khi ma database bi mat hoac khong co
@@ -217,6 +227,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.sideMenuShare:
                 // do you click actions for the second selection
+                break;
+            case R.id.sideMenuAllReview:
+                switchPage(new AllReview());
                 break;
             case R.id.sideMenuSetting:
                 // do you click actions for the third selection
