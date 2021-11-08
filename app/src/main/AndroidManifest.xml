@@ -43,6 +43,9 @@
         <activity
             android:name=".UserLoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".AllReview"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ import java.util.ArrayList;
 public class AddBook extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener  {
     Spinner spDanhmuc;
-    MainActivity mainActivity;
+    //MainActivity mainActivity;
     AppCompatImageView menuIcon;
     Button buttonAdd;
     String dbName = "JustReviewDatabase.db";
@@ -151,7 +151,7 @@ public class AddBook extends AppCompatActivity implements
 
         switch (menuItem.getItemId()) {
             case R.id.sideMenuHome:
-                mainActivity.switchPage(new MainActivity());
+                switchPage(new MainActivity());
                 break;
             case R.id.sideMenuShare:
                 // do you click actions for the second selection
@@ -159,14 +159,21 @@ public class AddBook extends AppCompatActivity implements
             case R.id.sideMenuSetting:
                 // do you click actions for the third selection
                 break;
+            case R.id.sideMenuAllReview:
+                switchPage(new AllReview());
+                break;
             case R.id.sideMenuAddReview:
-                mainActivity.switchPage(new AddBook());
+                switchPage(new AddBook());
                 break;
         }
 
         return true;
     }
 
+    public void switchPage(Activity act) {
+        Intent intent = new Intent(this, act.getClass());
+        startActivity(intent);
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 

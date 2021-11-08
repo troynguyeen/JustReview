@@ -2,14 +2,20 @@ package com.example.justreview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class AllReview extends AppCompatActivity {
     ListView lvReview;
@@ -39,10 +45,24 @@ public class AllReview extends AppCompatActivity {
             Review review = new Review();
             review.image = cursor.getBlob(3);
             review.name = cursor.getString(1);
+            review.id = cursor.getInt(0);
             listReview.add(review);
         }
+        //xep lai theo thu tu moi nhat
+        Collections.reverse(listReview);
 
         AllReviewAdapter adapter = new AllReviewAdapter(listReview, getApplicationContext());
         lvReview.setAdapter(adapter);
+
+        lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), CommentDetails.class);
+                Review review = listReview.get(i);
+
+                intent.putExtra("ID", review.id);
+                startActivity(intent);
+            }
+        });
     }
 }
