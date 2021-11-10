@@ -26,6 +26,9 @@ public class UserLoginActivity extends FragmentActivity {
 
     public SQLiteDatabase database = null;
 
+
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
 //    SmoothBottomBar smoothBottomBar;
 
     @Override
@@ -39,6 +42,9 @@ public class UserLoginActivity extends FragmentActivity {
         btnlogin = (Button) findViewById(R.id.btnLogin);
         database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
 
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +57,7 @@ public class UserLoginActivity extends FragmentActivity {
                     Boolean checkuserpass = checkusernamepassword(user, pass);
                     if (checkuserpass==true) {
                         Toast.makeText(UserLoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        sharedPreferenceConfig.login_status(true);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         finish();
                         startActivity(intent);

@@ -24,10 +24,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,10 +61,17 @@ public class MainActivity extends AppCompatActivity implements
     public SQLiteDatabase database = null;
     TextView textViewAll;
 
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
 
         textViewAll = (TextView) findViewById(R.id.textViewAll);
 
@@ -71,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 switchPage(new AllReview());
             }
+
         });
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,6 +111,17 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
+        if(sharedPreferenceConfig.read_login_status() == false){
+            navigationView.getMenu().findItem(R.id.sideMenuLogout).setVisible(false);
+            navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(false);
+            navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(true);
+        }else{
+            navigationView.getMenu().findItem(R.id.sideMenuLogout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(true);
+            navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(false);
+        }
+
+
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(0);
 
@@ -118,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
                         switchPage(new CategoryActivity());
                         break;
                     case 3:
-                        switchPage(new UserLoginActivity());
+                        switchPage(new UserInformationActivity());
                         break;
                     default:
                         switchPage(new MainActivity());
@@ -237,10 +258,21 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.sideMenuAddReview:
                 switchPage(new AddBook());
                 break;
+            case R.id.sideMenuLogout:
+                sharedPreferenceConfig.login_status(false);
+                Toast.makeText(getApplicationContext(),"Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+            case R.id.sideMenuLogin:
+                switchPage(new UserLoginActivity());
+                break;
         }
+
 
         return true;
     }
+
+
 
     @Override
     public void onReviewClick(int position) {
