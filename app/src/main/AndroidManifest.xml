@@ -49,6 +49,9 @@
         <activity
             android:name=".UserInformationActivity"
             android:exported="true" />
+        <activity
+            android:name=".FavoriteActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
