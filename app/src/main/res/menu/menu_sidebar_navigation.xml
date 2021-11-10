@@ -22,8 +22,13 @@
                 android:id="@+id/sideMenuLogout"
                 android:icon="@drawable/ic_profile"
                 android:title="Logout" />
+            <item
+            android:id="@+id/sideMenuLogin"
+            android:icon="@drawable/ic_profile"
+            android:title="Login" />
 
         </menu>
+
     </item>
 
     <item android:title="Others">
