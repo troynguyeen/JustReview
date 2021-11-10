@@ -59,7 +59,7 @@ public class Edit extends AppCompatActivity implements
         setContentView(R.layout.activity_edit);
         menuIcon = findViewById(R.id.menuIcon);
         buttonEdit = findViewById(R.id.buttonEdit);
-
+        spDanhmuc=(Spinner) findViewById(R.id.spDanhMuc);
         txtTitle = findViewById(R.id.txtTitle);
         txtAuthor = findViewById(R.id.txtAuthorName);
         txtNoiDung = findViewById(R.id.txtNoiDung);
@@ -71,9 +71,16 @@ public class Edit extends AppCompatActivity implements
         loadData();
         loadSpinner();
 
-
+        bookImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityCompat.requestPermissions(Edit.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_CODE_GALLERY);
+            }
+        });
 
     }
+
+
 
     private void loadData() {
         review = new Review();
@@ -94,6 +101,8 @@ public class Edit extends AppCompatActivity implements
             }
 
         }
+
+        spDanhmuc.setSelection(review.theloai);
         txtTitle.setText(review.name);
         txtAuthor.setText(review.author);
         txtNoiDung.setText(review.description);
@@ -145,7 +154,7 @@ public class Edit extends AppCompatActivity implements
     }
 
     private void loadSpinner() {
-        spDanhmuc=(Spinner) findViewById(R.id.spDanhMuc);
+
         ArrayList<String> danhmuc =new ArrayList<String>();
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         Cursor cursor2 = database.rawQuery("Select * from DanhMuc where ID=?",new String[]{Integer.toString(review.id)});
@@ -198,5 +207,43 @@ public class Edit extends AppCompatActivity implements
         }
 
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "You don't have permission to access file location!", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
+            Uri uri = data.getData();
+
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                bookImg.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
