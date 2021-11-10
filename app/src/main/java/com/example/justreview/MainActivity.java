@@ -139,7 +139,13 @@ public class MainActivity extends AppCompatActivity implements
                         switchPage(new CategoryActivity());
                         break;
                     case 3:
-                        switchPage(new UserInformationActivity());
+                        if(sharedPreferenceConfig.read_login_status() == false){
+
+                        }else{
+
+                            switchPage(new UserInformationActivity());
+                        }
+
                         break;
                     default:
                         switchPage(new MainActivity());
@@ -265,6 +271,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.sideMenuLogin:
                 switchPage(new UserLoginActivity());
+                break;
+            case R.id.sidedMenuCategory:
+                switchPage(new CategoryActivity());
                 break;
         }
 

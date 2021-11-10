@@ -11,6 +11,11 @@
         android:title="All Review" />
 
     <item
+        android:id="@+id/sidedMenuCategory"
+        android:icon="@drawable/ic_all_review"
+        android:title="Categories" />
+
+    <item
         android:id="@+id/sideMenuAddReview"
         android:icon="@drawable/ic_plus"
         android:title="Add New Review" />
