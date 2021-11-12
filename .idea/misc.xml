@@ -44,6 +44,7 @@
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/menu/menu_sidebar_navigation.xml" value="0.36102564102564105" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19947916666666668" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/background_bookmark.xml" value="0.17083333333333334" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/background_favorite.xml" value="0.19444444444444445" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/background_search.xml" value="0.19444444444444445" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/ic_all_review.xml" value="0.19947916666666668" />
@@ -56,6 +57,7 @@
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/ic_favorite.xml" value="0.19947916666666668" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/ic_home.xml" value="0.19947916666666668" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/ic_launcher_background.xml" value="0.19947916666666668" />
+        <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/ic_unfavourite.xml" value="0.17083333333333334" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/round_corner_red.xml" value="0.1796875" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/drawable/textviev_border.xml" value="0.2296875" />
         <entry key="..\:/AndroidStudioProjects/JustReview/app/src/main/res/layout/activity_adapter_comment.xml" value="0.4" />

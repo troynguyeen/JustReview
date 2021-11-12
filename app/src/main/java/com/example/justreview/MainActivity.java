@@ -60,10 +60,9 @@ public class MainActivity extends AppCompatActivity implements
     List<Review> reviewList;
     public SQLiteDatabase database = null;
     TextView textViewAll;
-
     private SharedPreferenceConfig sharedPreferenceConfig;
 
-
+    int IDUser = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements
 
         });
 
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("IDUser")) {
+            IDUser = intent.getExtras().getInt("IDUser");
+        } else {
+            // Do something else
+        }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Chi xai cai nay khi ma database bi mat hoac khong co
         //Cho no chay 1 lan thoi roi comment lai
@@ -92,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements
         reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         setupReviewViewPager();
-
-
 
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
@@ -115,11 +119,14 @@ public class MainActivity extends AppCompatActivity implements
             navigationView.getMenu().findItem(R.id.sideMenuLogout).setVisible(false);
             navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(false);
             navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(true);
+            navigationView.getMenu().findItem(R.id.sideMyFavourite).setVisible(false);
         }else{
             if(sharedPreferenceConfig.read_admin_status() == true){
+                navigationView.getMenu().findItem(R.id.sideMyFavourite).setVisible(false);
                 navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(true);
             }else{
                 navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(false);
+                navigationView.getMenu().findItem(R.id.sideMyFavourite).setVisible(true);
             }
             navigationView.getMenu().findItem(R.id.sideMenuLogout).setVisible(true);
             navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(false);
@@ -138,7 +145,9 @@ public class MainActivity extends AppCompatActivity implements
                         finish();
                         break;
                     case 1:
-                        switchPage(new FavoriteActivity());
+                        Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                        intent.putExtra("IDUser", IDUser);
+                        startActivity(intent);
                         finish();
                         break;
                     case 2:
@@ -293,6 +302,12 @@ public class MainActivity extends AppCompatActivity implements
                 switchPage(new CategoryActivity());
                 finish();
                 break;
+            case R.id.sideMyFavourite:
+                Intent intent = new Intent(this, FavoriteActivity.class);
+                intent.putExtra("IDUser", IDUser);
+                startActivity(intent);
+                finish();
+                break;
         }
 
 
@@ -303,9 +318,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onReviewClick(int position) {
+
         Intent intent = new Intent(this, CommentDetails.class);
         Review review = reviewList.get(position);
         intent.putExtra("ID", review.id);
+        intent.putExtra("IDUser", IDUser);
         startActivity(intent);
     }
 }

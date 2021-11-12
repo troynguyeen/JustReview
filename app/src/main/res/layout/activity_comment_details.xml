@@ -129,6 +129,29 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/photoDetail"
                     tools:ignore="OnClick" />
+                <ImageView
+                    android:id="@+id/iconDetailFavourite"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.948"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/photoDetail"
+                    app:srcCompat="@drawable/ic_baseline_turned_in_24"
+                    />
+
+                <ImageView
+                    android:id="@+id/iconDetailNotFavourite"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.948"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/photoDetail"
+                    app:srcCompat="@drawable/ic_unfavourite"
+                    />
                 <Button
                     android:id="@+id/buttonDelete"
                     android:layout_width="99dp"
