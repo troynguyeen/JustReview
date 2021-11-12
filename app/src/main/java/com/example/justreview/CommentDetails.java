@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,13 +27,13 @@ public class CommentDetails extends AppCompatActivity {
     ArrayList<Comment> comments;
     String dbName = "JustReviewDatabase.db";
     TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
-    ImageView photo;
+    ImageView photo, favouriteIcon, notFavouriteIcon;
     Review review;
     Button returnButton, deleteButton, updateButton;
     public SQLiteDatabase database = null;
     private SharedPreferenceConfig sharedPreferenceConfig;
 
-
+    Boolean alreadyHasFavourited = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +48,37 @@ public class CommentDetails extends AppCompatActivity {
         deleteButton = (Button)findViewById(R.id.buttonDelete);
         updateButton = (Button) findViewById(R.id.buttonUpdate);
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+        favouriteIcon = (ImageView) findViewById(R.id.iconDetailFavourite);
+        notFavouriteIcon = (ImageView) findViewById(R.id.iconDetailNotFavourite);
+
+        database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
+
+        if(sharedPreferenceConfig.read_login_status() == false){
+            favouriteIcon.setVisibility(View.INVISIBLE);
+            notFavouriteIcon.setVisibility(View.INVISIBLE);
+        }else{
+            if(sharedPreferenceConfig.read_admin_status() == false){
+                favouriteIcon.setVisibility(View.VISIBLE);
+                //notFavouriteIcon.setVisibility(View.VISIBLE);
+            }else{
+                favouriteIcon.setVisibility(View.INVISIBLE);
+                notFavouriteIcon.setVisibility(View.INVISIBLE);
+            }
+        }
 
         if(sharedPreferenceConfig.read_admin_status() == false){
             deleteButton.setVisibility(View.INVISIBLE);
             updateButton.setVisibility(View.INVISIBLE);
+
         }else{
             deleteButton.setVisibility(View.VISIBLE);
             updateButton.setVisibility(View.VISIBLE);
+
         }
+
+        Bundle extras = getIntent().getExtras();
+        //Toast.makeText(getApplicationContext(),Integer.toString(extras.getInt("IDUser")),Toast.LENGTH_SHORT).show();
+
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +91,7 @@ public class CommentDetails extends AppCompatActivity {
 
         review = new Review();
 
-        Bundle extras = getIntent().getExtras();
-        database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
+
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
 
         while (cursor.moveToNext()){
@@ -82,6 +105,45 @@ public class CommentDetails extends AppCompatActivity {
                 review.id = cursor.getInt(0);
             }
         }
+
+
+        notFavouriteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favouriteIcon.setVisibility(View.VISIBLE);
+                notFavouriteIcon.setVisibility(View.INVISIBLE);
+
+                if(extras.getInt("IDUser")  != 0){
+                    Cursor cursor = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+
+                    while (cursor.moveToNext()){
+                        if(cursor.getInt(2) == review.id && cursor.getInt(1) == extras.getInt("IDUser")){
+                            alreadyHasFavourited = true;
+                        }
+                    }
+
+                    if(alreadyHasFavourited == false){
+                        ContentValues values = new ContentValues();
+                        values.put("IDUser", extras.getInt("IDUser"));
+                        values.put("IDDanhSachReview", review.id);
+
+                        database.insert("DanhSachYeuThich",null, values );
+                        Toast.makeText(getApplicationContext(),"Thêm vào danh sách yêu thích thành công",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+
+        favouriteIcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                favouriteIcon.setVisibility(View.INVISIBLE);
+                notFavouriteIcon.setVisibility(View.VISIBLE);
+            }
+        });
+
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

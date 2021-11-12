@@ -64,7 +64,10 @@ public class UserLoginActivity extends FragmentActivity {
                     if (checkuserpass==true) {
                         Toast.makeText(UserLoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         sharedPreferenceConfig.login_status(true);
+                        int userID = returnUserID(user,pass);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("IDUser", userID);
+                        //Toast.makeText(getApplicationContext(),Integer.toString(userID),Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(intent);
                     } else {
@@ -125,6 +128,17 @@ public class UserLoginActivity extends FragmentActivity {
 //                return true;
 //            }
 //        });
+    }
+
+    int returnUserID(String username, String password){
+        Cursor cursor = database.query("TaiKhoanUser", null, null, null, null, null, null);
+        int id = 0;
+        while (cursor.moveToNext()){
+            if(cursor.getString(1).equals(username) && cursor.getString(2).equals(password)){
+                id = cursor.getInt(0);
+            }
+        }
+        return id;
     }
 
     public Boolean checkusernamepassword(String username, String password){

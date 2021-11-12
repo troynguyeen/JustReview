@@ -5,33 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FavoriteActivity">
-    <include layout="@layout/header"/>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/header" />
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:paddingLeft="10sp"
-        android:paddingTop="70sp"
-        android:paddingRight="10sp">
+        android:paddingTop="40sp"
+        android:paddingRight="10sp"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        tools:layout_editor_absoluteX="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="44dp">
 
-    <ListView
-        android:id="@+id/lvFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/activity_list_adapter_favorite"/>
+
+            <TextView
+                android:id="@+id/favouriteNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="72dp"
+                android:layout_marginTop="20dp"
+                android:text="Đăng nhập để có thể xem chức năng xem danh sách yêu thích"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_label"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical|center_horizontal"/>
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/LvReview2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-    <include
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        layout="@layout/navigation_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,11 @@
         android:icon="@drawable/ic_plus"
         android:title="Add New Review" />
 
+    <item
+        android:id="@+id/sideMyFavourite"
+        android:icon="@drawable/ic_baseline_turned_in_24"
+        android:title="My Favourite" />
+
     <item android:title="Profile">
         <menu>
 
