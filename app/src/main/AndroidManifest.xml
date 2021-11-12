@@ -52,6 +52,9 @@
         <activity
             android:name=".FavoriteActivity"
             android:exported="true" />
+        <activity
+            android:name=".LoginAdminActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
