@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,11 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class UserLoginActivity extends FragmentActivity {
 
     EditText username, password;
-    Button btnlogin, btnNextRegister;
+    Button btnlogin, btnNextRegister, btnNextLoginAdmin;
+    ImageView backButton;
+
     String DB = "JustReviewDatabase.db";
+
 
     public SQLiteDatabase database = null;
 
@@ -39,7 +43,9 @@ public class UserLoginActivity extends FragmentActivity {
         username = (EditText) findViewById(R.id.userName1);
         password = (EditText) findViewById(R.id.password1);
         btnNextRegister = (Button) findViewById(R.id.btnNextRegister);
+        btnNextLoginAdmin = (Button) findViewById(R.id.btnNextLoginAdmin);
         btnlogin = (Button) findViewById(R.id.btnLogin);
+        backButton = (ImageView) findViewById(R.id.backButton);
         database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
 
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
@@ -72,6 +78,22 @@ public class UserLoginActivity extends FragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnNextLoginAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginAdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,8 +135,8 @@ public class UserLoginActivity extends FragmentActivity {
             return false;
     }
 
-    public void switchPage(Activity act) {
-        Intent intent = new Intent(this, act.getClass());
-        startActivity(intent);
-    }
+//    public void switchPage(Activity act) {
+//        Intent intent = new Intent(this, act.getClass());
+//        startActivity(intent);
+//    }
 }
