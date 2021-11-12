@@ -28,8 +28,11 @@ public class CommentDetails extends AppCompatActivity {
     TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
     ImageView photo;
     Review review;
-    Button returnButton, deleteButton;
+    Button returnButton, deleteButton, updateButton;
     public SQLiteDatabase database = null;
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,16 @@ public class CommentDetails extends AppCompatActivity {
         theLoaiV = (TextView)findViewById(R.id.the_loai);
         returnButton = (Button)findViewById(R.id.ReturnButton);
         deleteButton = (Button)findViewById(R.id.buttonDelete);
+        updateButton = (Button) findViewById(R.id.buttonUpdate);
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
+        if(sharedPreferenceConfig.read_admin_status() == false){
+            deleteButton.setVisibility(View.INVISIBLE);
+            updateButton.setVisibility(View.INVISIBLE);
+        }else{
+            deleteButton.setVisibility(View.VISIBLE);
+            updateButton.setVisibility(View.VISIBLE);
+        }
 
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
