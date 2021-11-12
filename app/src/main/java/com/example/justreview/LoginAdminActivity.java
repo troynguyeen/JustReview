@@ -52,6 +52,7 @@ public class LoginAdminActivity extends FragmentActivity {
                     if (checkadminpass==true) {
                         Toast.makeText(LoginAdminActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         sharedPreferenceConfig.login_status(true);
+                        sharedPreferenceConfig.is_admin_status(true);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         finish();
                         startActivity(intent);

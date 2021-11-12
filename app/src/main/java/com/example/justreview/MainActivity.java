@@ -116,8 +116,12 @@ public class MainActivity extends AppCompatActivity implements
             navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(false);
             navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(true);
         }else{
+            if(sharedPreferenceConfig.read_admin_status() == true){
+                navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(true);
+            }else{
+                navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(false);
+            }
             navigationView.getMenu().findItem(R.id.sideMenuLogout).setVisible(true);
-            navigationView.getMenu().findItem(R.id.sideMenuAddReview).setVisible(true);
             navigationView.getMenu().findItem(R.id.sideMenuLogin).setVisible(false);
         }
 
@@ -131,12 +135,16 @@ public class MainActivity extends AppCompatActivity implements
                 switch (i) {
                     case 0:
                         switchPage(new MainActivity());
+                        finish();
                         break;
                     case 1:
                         switchPage(new FavoriteActivity());
+                        finish();
                         break;
                     case 2:
                         switchPage(new CategoryActivity());
+                        finish();
+
                         break;
                     case 3:
                         if(sharedPreferenceConfig.read_login_status() == false){
@@ -144,11 +152,14 @@ public class MainActivity extends AppCompatActivity implements
                         }else{
 
                             switchPage(new UserInformationActivity());
+                            finish();
+
                         }
 
                         break;
                     default:
                         switchPage(new MainActivity());
+                        finish();
                         break;
                 }
                 return true;
@@ -251,29 +262,36 @@ public class MainActivity extends AppCompatActivity implements
         switch (menuItem.getItemId()) {
             case R.id.sideMenuHome:
                 switchPage(new MainActivity());
+                finish();
                 break;
             case R.id.sideMenuShare:
                 // do you click actions for the second selection
                 break;
             case R.id.sideMenuAllReview:
                 switchPage(new AllReview());
+                finish();
                 break;
             case R.id.sideMenuSetting:
                 // do you click actions for the third selection
                 break;
             case R.id.sideMenuAddReview:
                 switchPage(new AddBook());
+                finish();
                 break;
             case R.id.sideMenuLogout:
                 sharedPreferenceConfig.login_status(false);
+                sharedPreferenceConfig.is_admin_status(false);
                 Toast.makeText(getApplicationContext(),"Đăng xuất thành công", Toast.LENGTH_SHORT).show();
+                switchPage(new MainActivity());
                 finish();
                 break;
             case R.id.sideMenuLogin:
                 switchPage(new UserLoginActivity());
+                finish();
                 break;
             case R.id.sidedMenuCategory:
                 switchPage(new CategoryActivity());
+                finish();
                 break;
         }
 
