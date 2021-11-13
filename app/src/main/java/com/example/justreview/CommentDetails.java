@@ -234,9 +234,6 @@ public class CommentDetails extends AppCompatActivity {
             }
         }
 
-        commentCursor.close();
-        database.close();
-
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
 
