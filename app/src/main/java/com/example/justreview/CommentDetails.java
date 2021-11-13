@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -205,15 +206,36 @@ public class CommentDetails extends AppCompatActivity {
         authorNameV.setText(review.author);
 
 
+        // Set Db to Comment
         comments = new ArrayList<Comment>();
-        Comment comment = new Comment("Cong","Bai viet rat hay",R.drawable.usericon );
-        comments.add(comment);
 
-        comment = new Comment("Dat","Bai viet rat hay",R.drawable.usericon);
-        comments.add(comment);
+        Cursor commentCursor = database.query("BinhLuan", null, null, null, null, null, null);
 
-        comment = new Comment("Cong","Bai viet rat hay", R.drawable.usericon);
-        comments.add(comment);
+        while (commentCursor.moveToNext()){
+
+            if(commentCursor.getInt(4) == extras.getInt("ID")){
+                Comment cmt = new Comment();
+
+                //Set TenUser to the name
+                Cursor userCursor = database.query("TaiKhoanUser", null, null, null, null, null, null);
+                while (userCursor.moveToNext()){
+                    if(userCursor.getInt(0) == commentCursor.getInt(2)){
+                        cmt.setName(userCursor.getString(3));
+                    }
+                }
+
+                userCursor.close();
+
+                cmt.setComment(commentCursor.getString(1));
+                cmt.setImageId(R.drawable.usericon);
+                cmt.setScore(commentCursor.getInt(5));
+
+                comments.add(cmt);
+            }
+        }
+
+        commentCursor.close();
+        database.close();
 
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
@@ -221,7 +243,7 @@ public class CommentDetails extends AppCompatActivity {
     }
 
 
-    public void edid(View view) {
+    public void edit(View view) {
         Intent intent = new Intent(this, Edit.class);
 
         intent.putExtra("ID", review.id);

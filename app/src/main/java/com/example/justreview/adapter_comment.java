@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,15 +49,17 @@ public class adapter_comment extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context.getApplicationContext());
         view = layoutInflater.inflate(R.layout.activity_adapter_comment,null);
 
-        ImageView imgRiview = (ImageView)view.findViewById(R.id.UserImage);
-        imgRiview.setImageResource(list.get(i).getImageId());
-
+        ImageView imgReview = (ImageView)view.findViewById(R.id.UserImage);
+        imgReview.setImageResource(list.get(i).getImageId());
 
         TextView titleReview = (TextView)view.findViewById(R.id.userCmName);
         titleReview.setText(list.get(i).getName());
 
         TextView categoryReview = (TextView)view.findViewById(R.id.userComment);
         categoryReview.setText(list.get(i).getComment());
+
+        RatingBar ratingBar = (RatingBar)view.findViewById(R.id.ratingBar);
+        ratingBar.setRating(list.get(i).getScore());
 
         return view;
     }
