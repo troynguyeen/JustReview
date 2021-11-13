@@ -54,44 +54,8 @@ public class CommentDetails extends AppCompatActivity {
 
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
 
-        if(sharedPreferenceConfig.read_login_status() == false){
-            favouriteIcon.setVisibility(View.INVISIBLE);
-            notFavouriteIcon.setVisibility(View.INVISIBLE);
-        }else{
-            if(sharedPreferenceConfig.read_admin_status() == false){
-                favouriteIcon.setVisibility(View.VISIBLE);
-                //notFavouriteIcon.setVisibility(View.VISIBLE);
-            }else{
-                favouriteIcon.setVisibility(View.INVISIBLE);
-                notFavouriteIcon.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        if(sharedPreferenceConfig.read_admin_status() == false){
-            deleteButton.setVisibility(View.INVISIBLE);
-            updateButton.setVisibility(View.INVISIBLE);
-
-        }else{
-            deleteButton.setVisibility(View.VISIBLE);
-            updateButton.setVisibility(View.VISIBLE);
-
-        }
-
-        Bundle extras = getIntent().getExtras();
-        //Toast.makeText(getApplicationContext(),Integer.toString(extras.getInt("IDUser")),Toast.LENGTH_SHORT).show();
-
-
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-
-
         review = new Review();
-
+        Bundle extras = getIntent().getExtras();
 
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
 
@@ -104,8 +68,63 @@ public class CommentDetails extends AppCompatActivity {
                 review.description = cursor.getString(2);
                 review.theloai = cursor.getInt(6);
                 review.id = cursor.getInt(0);
+
             }
         }
+        cursor.close();
+
+
+        if(sharedPreferenceConfig.read_login_status() == false){
+            favouriteIcon.setVisibility(View.INVISIBLE);
+            notFavouriteIcon.setVisibility(View.INVISIBLE);
+        }else{
+            if(sharedPreferenceConfig.read_admin_status() == false){
+                favouriteIcon.setVisibility(View.INVISIBLE);
+                notFavouriteIcon.setVisibility(View.VISIBLE);
+                Cursor cursorCheckIfFavourite = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+
+                while (cursorCheckIfFavourite.moveToNext()){
+                    if(cursorCheckIfFavourite.getInt(1) == sharedPreferenceConfig.read_user_id() && cursorCheckIfFavourite.getInt(2) == review.id){
+                        favouriteIcon.setVisibility(View.VISIBLE);
+                        notFavouriteIcon.setVisibility(View.INVISIBLE);
+                        //Toast.makeText(getApplicationContext(),"A",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                cursorCheckIfFavourite.close();
+            }else{
+                favouriteIcon.setVisibility(View.INVISIBLE);
+                notFavouriteIcon.setVisibility(View.INVISIBLE);
+            }
+
+        }
+
+        if(sharedPreferenceConfig.read_admin_status() == false){
+            deleteButton.setVisibility(View.INVISIBLE);
+            updateButton.setVisibility(View.INVISIBLE);
+
+        }else{
+            deleteButton.setVisibility(View.VISIBLE);
+            updateButton.setVisibility(View.VISIBLE);
+        }
+
+
+
+
+
+
+
+        //Toast.makeText(getApplicationContext(),Integer.toString(extras.getInt("IDUser")),Toast.LENGTH_SHORT).show();
+
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
 
 
         notFavouriteIcon.setOnClickListener(new View.OnClickListener() {
@@ -114,23 +133,28 @@ public class CommentDetails extends AppCompatActivity {
                 favouriteIcon.setVisibility(View.VISIBLE);
                 notFavouriteIcon.setVisibility(View.INVISIBLE);
 
-                if(extras.getInt("IDUser")  != 0){
-                    Cursor cursor = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+                if(sharedPreferenceConfig.read_user_id()  != 0){
+                    //Toast.makeText(getApplicationContext(),Integer.toString(sharedPreferenceConfig.read_user_id()),Toast.LENGTH_SHORT).show();
 
-                    while (cursor.moveToNext()){
-                        if(cursor.getInt(2) == review.id && cursor.getInt(1) == extras.getInt("IDUser")){
+                    Cursor cursor1 = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+
+                    while (cursor1.moveToNext()){
+                        if(cursor1.getInt(1) == sharedPreferenceConfig.read_user_id() && cursor1.getInt(2) == review.id){
                             alreadyHasFavourited = true;
-                        }
-                    }
 
+                        }
+
+                    }
+                    cursor1.close();
                     if(alreadyHasFavourited == false){
                         ContentValues values = new ContentValues();
-                        values.put("IDUser", extras.getInt("IDUser"));
+                        values.put("IDUser", sharedPreferenceConfig.read_user_id());
                         values.put("IDDanhSachReview", review.id);
 
                         database.insert("DanhSachYeuThich",null, values );
                         Toast.makeText(getApplicationContext(),"Thêm vào danh sách yêu thích thành công",Toast.LENGTH_SHORT).show();
                     }
+
 
                 }
             }
@@ -141,6 +165,18 @@ public class CommentDetails extends AppCompatActivity {
             public void onClick(View view) {
                 favouriteIcon.setVisibility(View.INVISIBLE);
                 notFavouriteIcon.setVisibility(View.VISIBLE);
+                if(sharedPreferenceConfig.read_user_id() != 0){
+                    Cursor cursor1 = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+
+                    while (cursor1.moveToNext()){
+                        if(cursor1.getInt(1) == sharedPreferenceConfig.read_user_id() && cursor1.getInt(2) == review.id){
+                            database.delete("DanhSachYeuThich", "IDDanhSachReview=?", new String[]{Integer.toString(review.id)});
+                            Toast.makeText(getApplicationContext(), "Xóa Khỏi Danh Sách Yêu Thích Thành Công", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    cursor1.close();
+                }
             }
         });
 
@@ -233,6 +269,10 @@ public class CommentDetails extends AppCompatActivity {
                 comments.add(cmt);
             }
         }
+
+
+        commentCursor.close();
+
 
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);

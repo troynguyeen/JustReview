@@ -11,4 +11,6 @@
     <string name="login_status_shared_preference">com.example.justreview_login_status_shared_preference</string>
     <string name="is_admin_preference">com.example.justreview_is_admin_shared_preference</string>
     <string name="is_admin_status_shared_preference">com.example.justreview_is_admin_status_shared_preference</string>
+    <string name="id_user_preference">com.example.justreview_id_user_shared_preference</string>
+    <string name="id_user_shared_preference">com.example.justreview_id_user_shared_preference</string>
 </resources>
