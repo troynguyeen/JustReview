@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements
         //Chi xai cai nay khi ma database bi mat hoac khong co
         //Cho no chay 1 lan thoi roi comment lai
 
-//        CopyDatabaseFromFolderAsset();
+        //CopyDatabaseFromFolderAsset();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
