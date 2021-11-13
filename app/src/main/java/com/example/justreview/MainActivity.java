@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements
     TextView textViewAll;
     private SharedPreferenceConfig sharedPreferenceConfig;
 
-    int IDUser = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +102,7 @@ public class MainActivity extends AppCompatActivity implements
 
         });
 
-        Intent intent = getIntent();
 
-        if (intent.hasExtra("IDUser")) {
-            IDUser = intent.getExtras().getInt("IDUser");
-        } else {
-            // Do something else
-        }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Chi xai cai nay khi ma database bi mat hoac khong co
         //Cho no chay 1 lan thoi roi comment lai
@@ -167,9 +160,7 @@ public class MainActivity extends AppCompatActivity implements
                         finish();
                         break;
                     case 1:
-                        Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
-                        intent.putExtra("IDUser", IDUser);
-                        startActivity(intent);
+                        switchPage(new FavoriteActivity());
                         finish();
                         break;
                     case 2:
@@ -312,6 +303,8 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.sideMenuLogout:
                 sharedPreferenceConfig.login_status(false);
                 sharedPreferenceConfig.is_admin_status(false);
+                // 0 tức là đăng xuất
+                sharedPreferenceConfig.set_user_id(0);
                 Toast.makeText(getApplicationContext(),"Đăng xuất thành công", Toast.LENGTH_SHORT).show();
                 switchPage(new MainActivity());
                 finish();
@@ -325,9 +318,7 @@ public class MainActivity extends AppCompatActivity implements
                 finish();
                 break;
             case R.id.sideMyFavourite:
-                Intent intent = new Intent(this, FavoriteActivity.class);
-                intent.putExtra("IDUser", IDUser);
-                startActivity(intent);
+                switchPage(new FavoriteActivity());
                 finish();
                 break;
         }
@@ -344,7 +335,6 @@ public class MainActivity extends AppCompatActivity implements
         Intent intent = new Intent(this, CommentDetails.class);
         Review review = reviewList.get(position);
         intent.putExtra("ID", review.id);
-        intent.putExtra("IDUser", IDUser);
         startActivity(intent);
     }
 }

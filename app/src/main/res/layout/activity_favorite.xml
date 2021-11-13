@@ -52,5 +52,10 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
+    <include
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        layout="@layout/navigation_bar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

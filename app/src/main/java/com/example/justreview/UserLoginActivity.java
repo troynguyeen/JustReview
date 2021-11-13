@@ -66,7 +66,8 @@ public class UserLoginActivity extends FragmentActivity {
                         sharedPreferenceConfig.login_status(true);
                         int userID = returnUserID(user,pass);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("IDUser", userID);
+                        //intent.putExtra("IDUser", userID);
+                        sharedPreferenceConfig.set_user_id(userID);
                         //Toast.makeText(getApplicationContext(),Integer.toString(userID),Toast.LENGTH_SHORT).show();
                         finish();
                         startActivity(intent);

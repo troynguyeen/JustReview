@@ -26,10 +26,11 @@ public class FavoriteActivity extends AppCompatActivity {
     ArrayList<Integer> danhsachReview;
     String dbName = "JustReviewDatabase.db";
     public SQLiteDatabase database = null;
-
+    private SharedPreferenceConfig sharedPreferenceConfig;
     public FavoriteActivity() {
         fvr = new ArrayList<Review>();
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,57 @@ public class FavoriteActivity extends AppCompatActivity {
         notification = (TextView) findViewById(R.id.favouriteNotification);
         lvFavorite = (ListView) findViewById(R.id.LvReview2);
         database = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
-        Bundle extras = getIntent().getExtras();
-
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
         danhsachReview = new ArrayList<Integer>();
 
-        if (extras.getInt("IDUser") != 0) {
+
+        smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
+        smoothBottomBar.setItemActiveIndex(1);
+
+        smoothBottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public boolean onItemSelect(int i) {
+                switch (i) {
+                    case 0:
+                        switchPage(new MainActivity());
+                        finish();
+                        break;
+                    case 1:
+                        switchPage(new FavoriteActivity());
+                        finish();
+                        break;
+                    case 2:
+                        switchPage(new CategoryActivity());
+                        finish();
+
+                        break;
+                    case 3:
+                        if(sharedPreferenceConfig.read_login_status() == false){
+
+                        }else{
+
+                            switchPage(new UserInformationActivity());
+                            finish();
+
+                        }
+
+                        break;
+                    default:
+                        switchPage(new MainActivity());
+                        finish();
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+        if (sharedPreferenceConfig.read_user_id() != 0) {
             notification.setVisibility(View.INVISIBLE);
             Cursor cursor = database.query("DanhSachYeuThich", null, null, null, null, null, null);
             while (cursor.moveToNext()) {
-                if (cursor.getInt(1) == extras.getInt("IDUser")) {
+                if (cursor.getInt(1) == sharedPreferenceConfig.read_user_id()) {
                     danhsachReview.add(cursor.getInt(2));
                 }
             }
@@ -87,5 +129,11 @@ public class FavoriteActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    public void switchPage(Activity act) {
+        Intent intent = new Intent(this, act.getClass());
+        startActivity(intent);
     }
 }

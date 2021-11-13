@@ -124,7 +124,7 @@
                     android:layout_height="56dp"
                     android:layout_marginTop="16dp"
                     android:text="Update"
-                    android:onClick="edid"
+                    android:onClick="edit"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.948"
                     app:layout_constraintStart_toStartOf="parent"
