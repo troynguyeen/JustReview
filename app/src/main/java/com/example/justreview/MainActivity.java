@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,8 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, ReviewAdapter.OnReviewListener, Serializable {
+    EditText search;
+    AppCompatImageView searchBtn;
     SmoothBottomBar smoothBottomBar;
     AppCompatImageView menuIcon;
     ViewPager2  reviewViewPager;
@@ -69,8 +72,26 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+        search = findViewById(R.id.search);
+        searchBtn = findViewById(R.id.searchBtn);
 
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchKey = search.getText().toString();
+                ArrayList<Review> searchReviews = new ArrayList<Review>();
+
+                for (Review review : reviewList) {
+                    if(review.name.toLowerCase().contains(searchKey.toLowerCase())) {
+                        searchReviews.add(review);
+                    }
+                }
+
+                setupReviewViewPager(searchReviews);
+            }
+        });
+
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
         textViewAll = (TextView) findViewById(R.id.textViewAll);
 
@@ -97,7 +118,8 @@ public class MainActivity extends AppCompatActivity implements
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
-        setupReviewViewPager();
+        getReview();
+        setupReviewViewPager(reviewList);
 
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
@@ -220,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements
     public void goToFavouritePage(){
 
     }
-    private void setupReviewViewPager() {
+    private void setupReviewViewPager(List<Review> reviewList) {
         reviewViewPager.setClipToPadding(false);
         reviewViewPager.setClipChildren(false);
         reviewViewPager.setOffscreenPageLimit(4);
@@ -233,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements
         }));
         reviewViewPager.setPageTransformer(compositePageTransformer);
 
-        reviewViewPager.setAdapter(new ReviewAdapter(getReview(), this));
+        reviewViewPager.setAdapter(new ReviewAdapter(reviewList, this));
     }
 
     private List<Review> getReview() {
