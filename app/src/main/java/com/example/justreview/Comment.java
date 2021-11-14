@@ -2,25 +2,42 @@ package com.example.justreview;
 
 public class Comment {
     private String name, comment;
-    private int score, idImage;
+    private int id, userId, score, idImage;
 
     public Comment() {
 
     }
 
-    public Comment(String name, String comment, int idImage, int score) {
+    public Comment(int id, int userId, String name, String comment, int idImage, int score) {
+        this.id = id;
+        this.userId = userId;
         this.name = name;
         this.comment = comment;
         this.idImage = idImage;
         this.score = score;
     }
-    public int getImageId() {
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getImageId() {
         return idImage;
     }
 
     public void setImageId(int imageId) {
-
         this.idImage = imageId;
     }
 

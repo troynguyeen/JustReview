@@ -14,9 +14,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +31,16 @@ public class CommentDetails extends AppCompatActivity {
     ArrayList<Comment> comments;
     String dbName = "JustReviewDatabase.db";
     TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
+    EditText editComment;
+    RatingBar ratingStar, totalRatingStar;
     ImageView photo, favouriteIcon, notFavouriteIcon;
     Review review;
-    Button returnButton, deleteButton, updateButton;
+    Button returnButton, deleteButton, updateButton, submitComment, resetComment;
     public SQLiteDatabase database = null;
     private SharedPreferenceConfig sharedPreferenceConfig;
-
     Boolean alreadyHasFavourited = false;
+    int selectedComment = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,11 @@ public class CommentDetails extends AppCompatActivity {
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
         favouriteIcon = (ImageView) findViewById(R.id.iconDetailFavourite);
         notFavouriteIcon = (ImageView) findViewById(R.id.iconDetailNotFavourite);
+        ratingStar = (RatingBar) findViewById(R.id.ratingStar);
+        totalRatingStar = (RatingBar) findViewById(R.id.totalRatingStar);
+        editComment = (EditText) findViewById(R.id.editComment);
+        submitComment = (Button) findViewById(R.id.submitComment);
+        resetComment = (Button) findViewById(R.id.resetComment);
 
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
 
@@ -77,6 +88,10 @@ public class CommentDetails extends AppCompatActivity {
         if(sharedPreferenceConfig.read_login_status() == false){
             favouriteIcon.setVisibility(View.INVISIBLE);
             notFavouriteIcon.setVisibility(View.INVISIBLE);
+            editComment.setVisibility(View.INVISIBLE);
+            submitComment.setVisibility(View.INVISIBLE);
+            resetComment.setVisibility(View.INVISIBLE);
+
         }else{
             if(sharedPreferenceConfig.read_admin_status() == false){
                 favouriteIcon.setVisibility(View.INVISIBLE);
@@ -241,27 +256,112 @@ public class CommentDetails extends AppCompatActivity {
         descriptionV.setText(review.description);
         authorNameV.setText(review.author);
 
+        // Get list of Comment & Total of rating star
+        getListOfComment(extras.getInt("ID"));
 
-        // Set Db to Comment
+        // Add or Edit a comment
+        submitComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Add a comment
+                if(selectedComment == -1) {
+                    if(editComment.getText().length() > 0 && ratingStar.getRating() != 0) {
+                        ContentValues values = new ContentValues();
+                        values.put("NDBinhLuan", editComment.getText().toString());
+                        values.put("IDUser", sharedPreferenceConfig.read_user_id());
+                        values.put("IDDanhSachReview", extras.getInt("ID"));
+                        values.put("DiemDanhGia", (int) ratingStar.getRating());
+
+                        database.insert("BinhLuan",null, values);
+                        editComment.setText("");
+                        ratingStar.setRating(0);
+                        selectedComment = -1;
+                        getListOfComment(extras.getInt("ID"));
+                        Toast.makeText(CommentDetails.this, "Thêm bình luận thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(sharedPreferenceConfig.read_user_id() == 0) {
+                        Toast.makeText(CommentDetails.this, "Đăng nhập trước khi bình luận!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(CommentDetails.this, "Vui lòng nhập bình luận và đánh giá sao!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                // Update a comment
+                else {
+                    if(editComment.getText().length() > 0 && ratingStar.getRating() != 0) {
+                        int id = comments.get(selectedComment).getId();
+                        ContentValues values = new ContentValues();
+                        values.put("NDBinhLuan", editComment.getText().toString());
+                        values.put("IDUser", sharedPreferenceConfig.read_user_id());
+                        values.put("IDDanhSachReview", extras.getInt("ID"));
+                        values.put("DiemDanhGia", (int) ratingStar.getRating());
+
+                        database.update("BinhLuan", values, "ID = " + id, null);
+                        editComment.setText("");
+                        ratingStar.setRating(0);
+                        selectedComment = -1;
+                        getListOfComment(extras.getInt("ID"));
+                        Toast.makeText(CommentDetails.this, "Chỉnh sửa bình luận thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(CommentDetails.this, "Vui lòng nhập bình luận và đánh giá sao!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        });
+
+        // Reset to cancel comment
+        resetComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectedComment = -1;
+                editComment.setText("");
+                ratingStar.setRating(0);
+            }
+        });
+
+        // Load comment selected
+        lvComment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Validate user info
+                Comment cmt = new Comment();
+                cmt.setUserId(comments.get(i).getUserId());
+
+                if(sharedPreferenceConfig.read_user_id() == cmt.getUserId()) {
+                    selectedComment = i;
+                    OpenDeleteDialog(extras.getInt("ID"));
+                }
+                else {
+                    selectedComment = -1;
+                }
+            }
+        });
+    }
+
+    public void getListOfComment(int currentExtras){
         comments = new ArrayList<Comment>();
 
-        Cursor commentCursor = database.query("BinhLuan", null, null, null, null, null, null);
+        Cursor commentCursor = database.query("BinhLuan", null, null, null, null, null,  "ID DESC");
 
         while (commentCursor.moveToNext()){
-
-            if(commentCursor.getInt(4) == extras.getInt("ID")){
+            if(commentCursor.getInt(4) == currentExtras){
                 Comment cmt = new Comment();
 
                 //Set TenUser to the name
                 Cursor userCursor = database.query("TaiKhoanUser", null, null, null, null, null, null);
                 while (userCursor.moveToNext()){
                     if(userCursor.getInt(0) == commentCursor.getInt(2)){
+                        cmt.setUserId(userCursor.getInt(0));
                         cmt.setName(userCursor.getString(3));
                     }
                 }
-
                 userCursor.close();
 
+                cmt.setId(commentCursor.getInt(0));
                 cmt.setComment(commentCursor.getString(1));
                 cmt.setImageId(R.drawable.usericon);
                 cmt.setScore(commentCursor.getInt(5));
@@ -269,16 +369,60 @@ public class CommentDetails extends AppCompatActivity {
                 comments.add(cmt);
             }
         }
-
-
         commentCursor.close();
 
+        // Get total of rating star
+        int totalStar = 0;
+        for (Comment cmt : comments) {
+            totalStar += cmt.getScore();
+        }
+        totalRatingStar.setRating((float) totalStar / comments.size());
 
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
-
     }
 
+    private void OpenDeleteDialog(int currentExtras) {
+        if(selectedComment >= 0) {
+            String comment = comments.get(selectedComment).getComment();
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(CommentDetails.this);
+            builder.setTitle("Thông báo")
+                    .setMessage("Bạn có muốn xóa bình luận \"" + comment + "\" ?")
+                    .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            int id = comments.get(selectedComment).getId();
+                            database.delete("BinhLuan", "ID = " + id, null);
+                            getListOfComment(currentExtras);
+                            Toast.makeText(getBaseContext(), "Xóa bình luận thành công!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNeutralButton("Update", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Comment cmt = new Comment();
+                            cmt.setComment(comments.get(selectedComment).getComment());
+                            cmt.setScore(comments.get(selectedComment).getScore());
+                            editComment.setText(cmt.getComment());
+                            ratingStar.setRating(cmt.getScore());
+                        }
+                    })
+                    .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            selectedComment = -1;
+                            editComment.setText("");
+                            ratingStar.setRating(0);
+                        }
+                    }).create();
+
+            builder.show();
+
+        } else {
+            Toast.makeText(getBaseContext(), "Hãy chọn 1 dòng để xóa!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void edit(View view) {
         Intent intent = new Intent(this, Edit.class);
