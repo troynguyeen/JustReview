@@ -2,6 +2,8 @@ package com.example.justreview;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -14,10 +16,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -36,6 +40,7 @@ public class CommentDetails extends AppCompatActivity {
     ImageView photo, favouriteIcon, notFavouriteIcon;
     Review review;
     Button returnButton, deleteButton, updateButton, submitComment, resetComment;
+    LinearLayout layoutButtonComment;
     public SQLiteDatabase database = null;
     private SharedPreferenceConfig sharedPreferenceConfig;
     Boolean alreadyHasFavourited = false;
@@ -57,6 +62,7 @@ public class CommentDetails extends AppCompatActivity {
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
         favouriteIcon = (ImageView) findViewById(R.id.iconDetailFavourite);
         notFavouriteIcon = (ImageView) findViewById(R.id.iconDetailNotFavourite);
+        layoutButtonComment = (LinearLayout) findViewById(R.id.layoutButtonComment);
         ratingStar = (RatingBar) findViewById(R.id.ratingStar);
         totalRatingStar = (RatingBar) findViewById(R.id.totalRatingStar);
         editComment = (EditText) findViewById(R.id.editComment);
@@ -84,13 +90,24 @@ public class CommentDetails extends AppCompatActivity {
         }
         cursor.close();
 
+        if(sharedPreferenceConfig.read_login_status() == false || sharedPreferenceConfig.read_admin_status()) {
+            editComment.setVisibility(View.INVISIBLE);
+            submitComment.setVisibility(View.INVISIBLE);
+            ((ViewGroup)resetComment.getParent()).removeView(resetComment);
+            ((ViewGroup)layoutButtonComment.getParent()).removeView(layoutButtonComment);
+            ((ViewGroup)ratingStar.getParent()).removeView(ratingStar);
+
+            // Set constraint when remove editComment
+            ConstraintLayout constraintLayout = findViewById(R.id.parentConstraintLayout);
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            constraintSet.connect(R.id.ReturnButton,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
+            constraintSet.applyTo(constraintLayout);
+        }
 
         if(sharedPreferenceConfig.read_login_status() == false){
             favouriteIcon.setVisibility(View.INVISIBLE);
             notFavouriteIcon.setVisibility(View.INVISIBLE);
-            editComment.setVisibility(View.INVISIBLE);
-            submitComment.setVisibility(View.INVISIBLE);
-            resetComment.setVisibility(View.INVISIBLE);
 
         }else{
             if(sharedPreferenceConfig.read_admin_status() == false){
@@ -335,6 +352,10 @@ public class CommentDetails extends AppCompatActivity {
                     selectedComment = i;
                     OpenDeleteDialog(extras.getInt("ID"));
                 }
+                else if(sharedPreferenceConfig.read_admin_status()) {
+                    selectedComment = i;
+                    OpenDeleteDialog(extras.getInt("ID"));
+                }
                 else {
                     selectedComment = -1;
                 }
@@ -417,7 +438,11 @@ public class CommentDetails extends AppCompatActivity {
                         }
                     }).create();
 
-            builder.show();
+            // Hide update comment when admin login
+            Button updateComment = builder.show().getButton(AlertDialog.BUTTON_NEUTRAL);
+            if(sharedPreferenceConfig.read_admin_status()) {
+                updateComment.setVisibility(View.INVISIBLE);
+            }
 
         } else {
             Toast.makeText(getBaseContext(), "Hãy chọn 1 dòng để xóa!", Toast.LENGTH_SHORT).show();
