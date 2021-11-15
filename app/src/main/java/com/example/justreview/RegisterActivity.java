@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -23,7 +24,7 @@ import java.util.Calendar;
 public class RegisterActivity extends AppCompatActivity
 {
     EditText username, password, repassword, realname;
-    Button signup, signin, btnDate;
+    Button signup, btnDate;
     RadioGroup radioGrp;
     RadioButton radioButton;
 
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity
         repassword = (EditText) findViewById(R.id.confirmPassword);
         realname = (EditText) findViewById(R.id.realUserName);
         signup = (Button) findViewById(R.id.btnRegister);
-        signin = (Button) findViewById(R.id.btnNextLogin);
+        TextView signin =findViewById(R.id.btnNextLogin);
         btnDate = (Button) findViewById(R.id.datePickerButton);
 
         radioGrp = (RadioGroup) findViewById(R.id.radioGrp);

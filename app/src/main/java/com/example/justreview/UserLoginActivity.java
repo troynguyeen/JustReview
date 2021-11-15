@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class UserLoginActivity extends FragmentActivity {
 
     EditText username, password;
-    Button btnlogin, btnNextRegister, btnNextLoginAdmin;
+    Button btnlogin;
     ImageView backButton;
 
     String DB = "JustReviewDatabase.db";
@@ -42,8 +43,8 @@ public class UserLoginActivity extends FragmentActivity {
 
         username = (EditText) findViewById(R.id.userName1);
         password = (EditText) findViewById(R.id.password1);
-        btnNextRegister = (Button) findViewById(R.id.btnNextRegister);
-        btnNextLoginAdmin = (Button) findViewById(R.id.btnNextLoginAdmin);
+        TextView btnNextRegister = findViewById(R.id.btnNextRegister);
+        TextView btnNextLoginAdmin = findViewById(R.id.btnNextLoginAdmin);
         btnlogin = (Button) findViewById(R.id.btnLogin);
         backButton = (ImageView) findViewById(R.id.backButton);
         database = openOrCreateDatabase(DB,MODE_PRIVATE,null);
