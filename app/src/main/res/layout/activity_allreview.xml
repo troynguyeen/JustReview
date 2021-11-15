@@ -5,17 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AllReview">
-    <include layout="@layout/header"/>
+    <include android:id="@+id/header" layout="@layout/header"/>
+
+    <LinearLayout
+        android:id="@+id/layoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@drawable/background_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/searchBtn"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:src="@drawable/ic_search"
+            android:tint="@color/primary_label" />
+
+        <EditText
+            android:id="@+id/searchEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@null"
+            android:hint="Search"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColor="@color/primary_label"
+            android:textColorHint="@color/secondary_label"
+            android:textSize="@dimen/_13sdp" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/LvReview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="50dp"
         android:paddingTop="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/layoutSearch"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
