@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
@@ -41,6 +42,7 @@ public class FavoriteActivity extends AppCompatActivity {
         lvFavorite = (ListView) findViewById(R.id.LvReview2);
         database = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
+
 
         danhsachReview = new ArrayList<Integer>();
 
