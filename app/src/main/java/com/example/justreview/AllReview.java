@@ -1,6 +1,7 @@
 package com.example.justreview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class AllReview extends AppCompatActivity {
+    AppCompatImageView searchBtn;
+    EditText searchEdit;
     ListView lvReview;
     ArrayList<Review> listReview;
     String dbName = "JustReviewDatabase.db";
@@ -33,9 +38,26 @@ public class AllReview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allreview);
 
-        lvReview = findViewById(R.id.LvReview);
-
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
+
+        lvReview = findViewById(R.id.LvReview);
+        searchBtn = findViewById(R.id.searchBtn);
+        searchEdit = findViewById(R.id.searchEdit);
+
+        // Search review from list
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchKey = searchEdit.getText().toString();
+                ArrayList<Review> searchReviews = new ArrayList<Review>();
+                for (Review review : listReview){
+                    if(review.name.toLowerCase().contains(searchKey.toLowerCase().trim())) {
+                        searchReviews.add(review);
+                    }
+                }
+                fetchReviewList(searchReviews);
+            }
+        });
 
         //Get review from db
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
@@ -48,17 +70,22 @@ public class AllReview extends AppCompatActivity {
             review.id = cursor.getInt(0);
             listReview.add(review);
         }
-        //xep lai theo thu tu moi nhat
-        Collections.reverse(listReview);
+        fetchReviewList(listReview);
 
-        AllReviewAdapter adapter = new AllReviewAdapter(listReview, getApplicationContext());
+    }
+
+    private void fetchReviewList(ArrayList<Review> list){
+        //xep lai theo thu tu moi nhat
+        Collections.reverse(list);
+
+        AllReviewAdapter adapter = new AllReviewAdapter(list, getApplicationContext());
         lvReview.setAdapter(adapter);
 
         lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), CommentDetails.class);
-                Review review = listReview.get(i);
+                Review review = list.get(i);
 
                 intent.putExtra("ID", review.id);
                 startActivity(intent);

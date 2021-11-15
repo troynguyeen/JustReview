@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
                 ArrayList<Review> searchReviews = new ArrayList<Review>();
 
                 for (Review review : reviewList) {
-                    if(review.name.toLowerCase().contains(searchKey.toLowerCase())) {
+                    if(review.name.toLowerCase().contains(searchKey.toLowerCase().trim())) {
                         searchReviews.add(review);
                     }
                 }
