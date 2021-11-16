@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements
         textViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchPage(new AllReview());
+                switchPage(new allReview());
             }
 
         });
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements
                 // do you click actions for the second selection
                 break;
             case R.id.sideMenuAllReview:
-                switchPage(new AllReview());
+                switchPage(new allReview());
                 finish();
                 break;
             case R.id.sideMenuSetting:
