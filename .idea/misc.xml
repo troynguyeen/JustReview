@@ -88,9 +88,18 @@
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_admin_login.xml" value="0.264" />
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Android_ThucHanh/JustReview/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/JustReview/app/src/main/res/drawable/radius_red.xml" value="0.2703125" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_adapter_comment.xml" value="0.1" />
         <entry key="..\:/JustReview/app/src/main/res/layout/activity_add_book.xml" value="0.25416666666666665" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_admin_infomation.xml" value="0.25416666666666665" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_admin_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_allreview.xml" value="0.25416666666666665" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_category.xml" value="0.25416666666666665" />
         <entry key="..\:/JustReview/app/src/main/res/layout/activity_comment_details.xml" value="0.25416666666666665" />
         <entry key="..\:/JustReview/app/src/main/res/layout/activity_edit.xml" value="0.264" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_register.xml" value="0.4" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/activity_user_information.xml" value="0.25416666666666665" />
+        <entry key="..\:/JustReview/app/src/main/res/layout/showdm.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

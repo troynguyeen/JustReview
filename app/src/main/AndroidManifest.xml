@@ -55,6 +55,9 @@
         <activity
             android:name=".LoginAdminActivity"
             android:exported="true" />
+        <activity
+            android:name=".ShowDM"
+            android:exported="true" />
 
     </application>
 
