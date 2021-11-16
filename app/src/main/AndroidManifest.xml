@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.justreview">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,49 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustReview">
         <activity
-            android:name=".Edit"
-            android:exported="true" />
-        <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/FullScreen">
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".UserLoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <activity -->
-        <!-- android:name=".FavoriteActivity" -->
-        <!-- android:exported="true" /> -->
-        <activity
-            android:name=".CategoryActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".AddBook"
-            android:exported="true" />
-        <activity
-            android:name=".CommentDetails"
-            android:exported="true" />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".UserLoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".AllReview"
-            android:exported="true" />
-        <activity
-            android:name=".UserInformationActivity"
-            android:exported="true" />
-        <activity
-            android:name=".FavoriteActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginAdminActivity"
-            android:exported="true" />
-
+        </activity>
     </application>
 
 </manifest>
