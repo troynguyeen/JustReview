@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -22,6 +24,7 @@ public class ShowDm extends AppCompatActivity {
     ArrayList<Review> listReview;
     String dbName = "JustReviewDatabase.db";
     String DB_Path =  "/databases/";
+    Review review;
     public SQLiteDatabase database = null;
 
     public ShowDm() {
@@ -58,16 +61,18 @@ public class ShowDm extends AppCompatActivity {
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
         listReview.clear();
 
-
+         review = new Review();
         while (cursor.moveToNext()){
             if (cursor.getInt(6) == extras.getInt("DM")) {
-                Review review = new Review();
+
                 review.image = cursor.getBlob(3);
                 review.name = cursor.getString(1);
                 review.id = cursor.getInt(0);
                 listReview.add(review);
+
             }
         }
+
         fetchReviewList(listReview);
 
     }
@@ -85,7 +90,7 @@ public class ShowDm extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CommentDetails.class);
                 Review review = list.get(i);
 
-                intent.putExtra("ID", review.id);
+                intent.putExtra("ID", review.id-1);
                 startActivity(intent);
             }
         });
