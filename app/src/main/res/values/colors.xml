@@ -20,4 +20,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRed">#C11515</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorAccent">#ECC131</color>
 </resources>

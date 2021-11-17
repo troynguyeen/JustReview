@@ -6,22 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".CommentDetails">
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/header" />
-     />
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingLeft="10sp"
-        android:paddingTop="90sp"
-        android:paddingRight="10sp">
-
         <ScrollView
+            android:id="@+id/third_scrillview"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,79 +23,100 @@
 
                 <ImageView
                     android:id="@+id/photoDetail"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="72dp"
+                    android:layout_width="412dp"
+                    android:layout_height="291dp"
                     android:contentDescription="TODO"
                     android:scaleType="centerCrop"
                     android:transitionName="photoToAnimate"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/book_codedao" />
+                    app:srcCompat="@drawable/book_hacknao1500tuvung" />
 
-                <RatingBar
-                    android:id="@+id/totalRatingStar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
+                <ImageView
+                    android:id="@+id/down_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="15dp"
-                    android:numStars="5"
-                    android:isIndicator="true"
+                    android:layout_marginStart="34dp"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="356dp"
+                    android:layout_marginRight="356dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/photoDetail" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_back_arrow"/>
 
-                <TextView
-                    android:id="@+id/book_name"
-                    android:layout_width="250dp"
+                <LinearLayout
+                    android:id="@+id/aa"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="1dp"
-                    android:text="Toi di code dao"
-                    android:textColor="#000000"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/totalRatingStar" />
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/photoDetail">
+                    <TextView
+                        android:id="@+id/book_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:fontFamily="@font/open_sans_extra_bold"
+                        android:text="Hack Não Quá Đi"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+                        <RatingBar
+                            android:id="@+id/totalRatingStar"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:numStars="5"
+                            android:progressTint="@color/colorAccent"
+                            android:rating="4.5"
+                            android:stepSize="0.5"
+                            android:isIndicator="true"
+                            tools:targetApi="lollipop" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/author_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Toi di code dao"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/book_name" />
-                <TextView
-                    android:id="@+id/the_loai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Lập trình"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/author_name" />
+                    <TextView
+                        android:id="@+id/author_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingLeft="8dp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:text="Tác giả"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/book_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text="description here\ndescription here\ndescription here\n"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/the_loai" />
+                    <TextView
+                        android:id="@+id/the_loai"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:paddingLeft="8dp"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:text="Danh mục"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
 
+                    <TextView
+                        android:id="@+id/book_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="8dp"
+                        android:alpha="0.5"
+                        android:fontFamily="@font/open_sans_regular"
+                        android:text="Nội dung Riview sách hay nhất "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
 
                 <ListView
                     android:id="@+id/lvComment"
@@ -115,7 +125,7 @@
                     android:nestedScrollingEnabled="true"
                     android:paddingTop="10sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/book_description"
+                    app:layout_constraintTop_toBottomOf="@id/aa"
                     tools:listitem="@layout/activity_adapter_comment" />
 
                 <RatingBar
@@ -160,7 +170,6 @@
                     app:layout_constraintTop_toBottomOf="@id/editComment"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-
                     <Button
                         android:id="@+id/submitComment"
                         android:layout_width="120dp"
@@ -179,24 +188,10 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/ReturnButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/round_corner_red"
-                    android:text="Quay lại"
-                    android:textColor="#FFF"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layoutButtonComment"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <Button
                     android:id="@+id/buttonUpdate"
                     android:layout_width="99dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="25dp"
                     android:text="Update"
                     android:onClick="edit"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -208,7 +203,7 @@
                     android:id="@+id/iconDetailFavourite"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.948"
                     app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +215,7 @@
                     android:id="@+id/iconDetailNotFavourite"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.948"
                     app:layout_constraintStart_toStartOf="parent"
@@ -241,8 +236,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

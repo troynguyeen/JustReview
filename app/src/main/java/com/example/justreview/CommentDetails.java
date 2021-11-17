@@ -1,11 +1,13 @@
 package com.example.justreview;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +15,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,10 +44,12 @@ public class CommentDetails extends AppCompatActivity {
     TextView reviewNameV, descriptionV, authorNameV, theLoaiV;
     EditText editComment;
     RatingBar ratingStar, totalRatingStar;
-    ImageView photo, favouriteIcon, notFavouriteIcon;
+    ImageView photo, favouriteIcon, notFavouriteIcon, down_arrow;
     Review review;
-    Button returnButton, deleteButton, updateButton, submitComment, resetComment;
+    Button deleteButton, updateButton, submitComment, resetComment;
     LinearLayout layoutButtonComment;
+    Animation from_bottom;
+    ScrollView third_scrollview;
     public SQLiteDatabase database = null;
     private SharedPreferenceConfig sharedPreferenceConfig;
     Boolean alreadyHasFavourited = false;
@@ -56,7 +65,7 @@ public class CommentDetails extends AppCompatActivity {
         authorNameV = (TextView) findViewById(R.id.author_name);
         photo = (ImageView) findViewById(R.id.photoDetail);
         theLoaiV = (TextView)findViewById(R.id.the_loai);
-        returnButton = (Button)findViewById(R.id.ReturnButton);
+        down_arrow = (ImageView) findViewById(R.id.down_arrow);
         deleteButton = (Button)findViewById(R.id.buttonDelete);
         updateButton = (Button) findViewById(R.id.buttonUpdate);
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
@@ -68,6 +77,24 @@ public class CommentDetails extends AppCompatActivity {
         editComment = (EditText) findViewById(R.id.editComment);
         submitComment = (Button) findViewById(R.id.submitComment);
         resetComment = (Button) findViewById(R.id.resetComment);
+
+        down_arrow = findViewById(R.id.down_arrow);
+        third_scrollview = findViewById(R.id.third_scrillview);
+        from_bottom = AnimationUtils.loadAnimation(this, R.anim.anim_from_bottom);
+        down_arrow.setAnimation(from_bottom);
+        third_scrollview.setAnimation(from_bottom);
+
+        down_arrow.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CommentDetails.this, MainActivity.class);
+                Pair[] pairs = new Pair[1];
+                pairs[0] = new Pair<View, String>(down_arrow, "background_image_transition");
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(CommentDetails.this, pairs);
+                startActivity(intent, options.toBundle());
+            }
+        });
 
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
 
@@ -101,7 +128,7 @@ public class CommentDetails extends AppCompatActivity {
             ConstraintLayout constraintLayout = findViewById(R.id.parentConstraintLayout);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
-            constraintSet.connect(R.id.ReturnButton,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
+            constraintSet.connect(R.id.down_arrow,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
             constraintSet.applyTo(constraintLayout);
         }
 
@@ -148,13 +175,6 @@ public class CommentDetails extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(),Integer.toString(extras.getInt("IDUser")),Toast.LENGTH_SHORT).show();
 
-
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
 
 

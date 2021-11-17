@@ -30,7 +30,6 @@
         <activity
             android:name=".CategoryActivity"
             android:exported="true" />
-
         <activity
             android:name=".AddBook"
             android:exported="true" />
