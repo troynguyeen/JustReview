@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class CategoryActivity extends AppCompatActivity {
     SmoothBottomBar smoothBottomBar;
-
+    Button btnIT,btnAV,btnVH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,33 @@ public class CategoryActivity extends AppCompatActivity {
                 }
                 smoothBottomBar.setItemActiveIndex(i);
                 return true;
+            }
+        });
+        btnIT=findViewById(R.id.btnIT);
+        btnIT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),ShowDm.class);
+                intent.putExtra("DM",1);
+                startActivity(intent);
+            }
+        });
+        btnAV=findViewById(R.id.btnAV);
+        btnAV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),ShowDm.class);
+                intent.putExtra("DM",2);
+                startActivity(intent);
+            }
+        });
+        btnVH=findViewById(R.id.btnVH);
+        btnVH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),ShowDm.class);
+                intent.putExtra("DM",3);
+                startActivity(intent);
             }
         });
     }
