@@ -22,20 +22,6 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/down_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="34dp"
-                    android:layout_marginLeft="34dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="356dp"
-                    android:layout_marginRight="356dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/ic_back_arrow"/>
-
-                <ImageView
                     android:id="@+id/photoDetail"
                     android:layout_width="412dp"
                     android:layout_height="291dp"
@@ -46,6 +32,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/book_hacknao1500tuvung" />
+
+                <ImageView
+                    android:id="@+id/down_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="356dp"
+                    android:layout_marginRight="356dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_back_arrow"/>
 
                 <RatingBar
                     android:id="@+id/totalRatingStar"

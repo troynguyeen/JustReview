@@ -128,7 +128,7 @@ public class CommentDetails extends AppCompatActivity {
             ConstraintLayout constraintLayout = findViewById(R.id.parentConstraintLayout);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
-            constraintSet.connect(R.id.down_arrow,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
+//            constraintSet.connect(R.id.down_arrow,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
             constraintSet.applyTo(constraintLayout);
         }
 
