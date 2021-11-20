@@ -84,6 +84,7 @@ public class UserLoginActivity extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -92,6 +93,7 @@ public class UserLoginActivity extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginAdminActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -100,6 +102,7 @@ public class UserLoginActivity extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

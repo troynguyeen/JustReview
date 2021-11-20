@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,7 +80,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
             textName.setText(review.name);
             textAuthor.setText(review.author);
-            textPostDate.setText(review.postDate);
+            textPostDate.setText(review.theLoaiText);
+
             ratingBar.setRating(review.rating);
         }
 

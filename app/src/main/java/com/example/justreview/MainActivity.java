@@ -65,10 +65,14 @@ public class MainActivity extends AppCompatActivity implements
     TextView textViewAll;
     private SharedPreferenceConfig sharedPreferenceConfig;
 
+    TextView userNameSideNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         search = findViewById(R.id.search);
         searchBtn = findViewById(R.id.searchBtn);
@@ -102,11 +106,12 @@ public class MainActivity extends AppCompatActivity implements
         });
 
 
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Chi xai cai nay khi ma database bi mat hoac khong co
         //Cho no chay 1 lan thoi roi comment lai
 
-//        CopyDatabaseFromFolderAsset();
+    //CopyDatabaseFromFolderAsset();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~s~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         reviewViewPager = findViewById(R.id.reviewViewPager);
         database = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
@@ -122,7 +127,21 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 drawerLayout.openDrawer(GravityCompat.END);
-
+                userNameSideNavigation = findViewById(R.id.userNameTopBar);
+                if(sharedPreferenceConfig.read_login_status() == false){
+                    userNameSideNavigation.setText("Khách");
+                }else{
+                    if(sharedPreferenceConfig.read_admin_status() == true){
+                        userNameSideNavigation.setText("Quản trị viên");
+                    }else{
+                        Cursor cursor = database.query("TaiKhoanUser", null, null, null, null, null, null);
+                        while(cursor.moveToNext()){
+                            if(cursor.getInt(0) == sharedPreferenceConfig.read_user_id()){
+                                userNameSideNavigation.setText(cursor.getString(3));
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -169,12 +188,17 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 3:
                         if(sharedPreferenceConfig.read_login_status() == false){
+                            switchPage(new LoginAdminActivity());
 
-                        }else{
-
-                            switchPage(new UserInformationActivity());
                             finish();
-
+                        }else{
+                            if(sharedPreferenceConfig.read_admin_status() == true){
+                                switchPage(new AdminInformationActivity());
+                                finish();
+                            }else{
+                                switchPage(new UserInformationActivity());
+                                finish();
+                            }
                         }
 
                         break;
@@ -259,11 +283,17 @@ public class MainActivity extends AppCompatActivity implements
            book.image = cursor.getBlob(3);
            book.name = cursor.getString(1);
            book.author = cursor.getString(5);
-           book.postDate = "12/10/2021";
            book.rating = cursor.getFloat(4);
            book.description = cursor.getString(2);
            book.id = cursor.getInt(0);
            book.theloai = cursor.getInt(6);
+           if(book.theloai == 0){
+               book.theLoaiText = "Lập trình";
+           }else if(book.theloai == 1){
+               book.theLoaiText = "Anh Văn";
+           }else{
+               book.theLoaiText = "Văn Học";
+           }
            reviewList.add(book);
         }
 
