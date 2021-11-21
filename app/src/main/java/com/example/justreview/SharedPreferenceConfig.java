@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPreferenceConfig {
 
-    private SharedPreferences sharedPreferences, sharedPreferencesAdminStatus, sharedPreferencesUserID;
+    private SharedPreferences sharedPreferences, sharedPreferencesAdminStatus, sharedPreferencesUserID, sharedPreferencesAdminID;
     private Context context;
 
     public SharedPreferenceConfig(Context context) {
@@ -13,6 +13,7 @@ public class SharedPreferenceConfig {
         sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.login_shared_preference), Context.MODE_PRIVATE);
         sharedPreferencesAdminStatus = context.getSharedPreferences(context.getResources().getString(R.string.is_admin_preference), Context.MODE_PRIVATE);
         sharedPreferencesUserID = context.getSharedPreferences(context.getResources().getString(R.string.id_user_preference), Context.MODE_PRIVATE);
+        sharedPreferencesAdminID = context.getSharedPreferences(context.getResources().getString(R.string.id_admin_preference), Context.MODE_PRIVATE);
     }
 
 
@@ -49,6 +50,18 @@ public class SharedPreferenceConfig {
     public int read_user_id() {
         int id = 0;
         id = sharedPreferencesUserID.getInt(context.getResources().getString(R.string.id_user_shared_preference), id);
+        return id;
+    }
+
+    public void set_admin_id (int id) {
+        SharedPreferences.Editor editor = sharedPreferencesUserID.edit();
+        editor.putInt(context.getResources().getString(R.string.id_admin_shared_preference), id);
+        editor.commit();
+    }
+
+    public int read_admin_id() {
+        int id = 0;
+        id = sharedPreferencesUserID.getInt(context.getResources().getString(R.string.id_admin_shared_preference), id);
         return id;
     }
 }

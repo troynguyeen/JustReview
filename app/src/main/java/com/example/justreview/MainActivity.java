@@ -334,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements
                 sharedPreferenceConfig.is_admin_status(false);
                 // 0 tức là đăng xuất
                 sharedPreferenceConfig.set_user_id(0);
+                sharedPreferenceConfig.set_admin_id(0);
                 Toast.makeText(getApplicationContext(),"Đăng xuất thành công", Toast.LENGTH_SHORT).show();
                 switchPage(new MainActivity());
                 finish();
