@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/menuBookmark"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/ic_all_review"
         android:title="Notifications" />
 
     <item
