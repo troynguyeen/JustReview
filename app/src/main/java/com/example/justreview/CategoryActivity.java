@@ -51,7 +51,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
-                intent.putExtra("DM",0);
+                intent.putExtra("DM",1);
                 startActivity(intent);
             }
         });
@@ -60,7 +60,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
-                intent.putExtra("DM",1);
+                intent.putExtra("DM",2);
                 startActivity(intent);
             }
         });
@@ -69,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
-                intent.putExtra("DM",2);
+                intent.putExtra("DM",3);
                 startActivity(intent);
             }
         });

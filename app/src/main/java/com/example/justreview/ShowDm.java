@@ -61,10 +61,10 @@ public class ShowDm extends AppCompatActivity {
         Cursor cursor = database.query("DanhSachReview", null, null, null, null, null, null);
         listReview.clear();
 
-         review = new Review();
+
         while (cursor.moveToNext()){
             if (cursor.getInt(6) == extras.getInt("DM")) {
-
+                review = new Review();
                 review.image = cursor.getBlob(3);
                 review.name = cursor.getString(1);
                 review.id = cursor.getInt(0);
@@ -90,7 +90,7 @@ public class ShowDm extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CommentDetails.class);
                 Review review = list.get(i);
 
-                intent.putExtra("ID", review.id-1);
+                intent.putExtra("ID", review.id);
                 startActivity(intent);
             }
         });
