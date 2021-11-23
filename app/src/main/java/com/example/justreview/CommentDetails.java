@@ -274,7 +274,7 @@ public class CommentDetails extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),Integer.toString(review.theloai),Toast.LENGTH_SHORT).show();
         Cursor cursor2 = database.query("DanhMuc", null, null, null, null, null, null);
         while (cursor2.moveToNext()){
-            if(cursor2.getInt(0) == review.theloai + 1 ){
+            if(cursor2.getInt(0) == review.theloai ){
                 theLoaiV.setText(cursor2.getString(1));
             }
 
