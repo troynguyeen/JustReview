@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/sidedMenuCategory"
-        android:icon="@drawable/ic_all_review"
+        android:icon="@drawable/ic_category"
         android:title="Categories" />
 
     <item

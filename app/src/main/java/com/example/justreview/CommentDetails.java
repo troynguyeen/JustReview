@@ -419,6 +419,11 @@ public class CommentDetails extends AppCompatActivity {
         }
         totalRatingStar.setRating((float) totalStar / comments.size());
 
+        // Update total rating to Review
+        ContentValues values = new ContentValues();
+        values.put("DanhGia", (float) totalStar / comments.size());
+        database.update("DanhSachReview", values, "ID = " + currentExtras, null);
+
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);
     }
