@@ -102,7 +102,7 @@ public class Edit extends AppCompatActivity implements
 
         }
 
-        spDanhmuc.setSelection(review.theloai);
+        spDanhmuc.setSelection(review.theloai - 1);
         txtTitle.setText(review.name);
         txtAuthor.setText(review.author);
         txtNoiDung.setText(review.description);
@@ -125,7 +125,7 @@ public class Edit extends AppCompatActivity implements
                     values.put("TacGia", txtAuthor.getText().toString().trim());
                     values.put("AnhSach",imageViewToByte(bookImg));
 
-                    int idDanhMuc = spDanhmuc.getSelectedItemPosition();
+                    int idDanhMuc = spDanhmuc.getSelectedItemPosition() + 1;
                     values.put("IDDanhMuc", idDanhMuc);
                     //Toast.makeText(getApplicationContext(), String.valueOf(idDanhMuc), Toast.LENGTH_SHORT).show();
 

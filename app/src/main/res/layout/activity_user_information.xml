@@ -93,7 +93,7 @@
                 android:textColor="#5917e1"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtPassword2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 android:textColor="#5917e1"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtName2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                 android:textColor="#5917e1"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                 android:textColor="#5917e1"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/txtGioitinh2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                 android:textColor="#5917e1"
                 android:textSize="18sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

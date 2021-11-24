@@ -53,9 +53,11 @@ public class LoginAdminActivity extends FragmentActivity {
                         Toast.makeText(LoginAdminActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         sharedPreferenceConfig.login_status(true);
                         sharedPreferenceConfig.is_admin_status(true);
+                        int adminID = returnAdminID(admin,adminpass);
+                        sharedPreferenceConfig.set_admin_id(adminID);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        finish();
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(LoginAdminActivity.this,"Nhập sai Tài khoản hoặc Mật khẩu", Toast.LENGTH_SHORT).show();
                     }
@@ -68,11 +70,21 @@ public class LoginAdminActivity extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
     }
-
+    int returnAdminID(String adminname, String adminpassword){
+        Cursor cursor = database.query("TaiKhoanAdmin", null, null, null, null, null, null);
+        int id = 0;
+        while (cursor.moveToNext()){
+            if(cursor.getString(1).equals(adminname) && cursor.getString(2).equals(adminpassword)){
+                id = cursor.getInt(0);
+            }
+        }
+        return id;
+    }
     public Boolean checkadminnamepassword(String adminname, String adminpassword){
         Cursor cursor = database.rawQuery("Select * from TaiKhoanAdmin where TenTK = ? and MatKhau = ?", new String[] {adminname,adminpassword});
         if(cursor.getCount()>0)

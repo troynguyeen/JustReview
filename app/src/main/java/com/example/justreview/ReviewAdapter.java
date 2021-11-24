@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +51,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     static class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final RoundedImageView imagePoster;
-        private final TextView textName, textAuthor, textPostDate;
+        private final TextView textName, textAuthor, textPostDate, ratingCount;
         private final RatingBar ratingBar;
 
         OnReviewListener onReviewListener;
@@ -62,6 +63,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             textAuthor = view.findViewById(R.id.textAuthor);
             textPostDate = view.findViewById(R.id.textPostDate);
             ratingBar = view.findViewById(R.id.ratingBar);
+            ratingCount = view.findViewById(R.id.ratingCount);
 
             this.onReviewListener = onReviewListener;
 
@@ -79,8 +81,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
             textName.setText(review.name);
             textAuthor.setText(review.author);
-            textPostDate.setText(review.postDate);
+            textPostDate.setText(review.theLoaiText);
+
             ratingBar.setRating(review.rating);
+            ratingCount.setText("(" + review.ratingCount + " Đánh giá)");
         }
 
         @Override

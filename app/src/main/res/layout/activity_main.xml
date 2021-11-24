@@ -84,14 +84,15 @@
             app:layout_constraintBottom_toTopOf="@id/navigation">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reviewRecommended"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_8sdp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imageRecommended"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/book_codedao"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -110,6 +111,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/nameRecommended"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -120,6 +122,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/authorRecommended"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3sdp"
@@ -128,14 +131,16 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <TextView
+                        android:id="@+id/categoryRecommended"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="03/10/2021"
+                        android:text="IT"
                         android:textColor="@color/secondary_label"
                         android:textSize="@dimen/_10ssp" />
 
                     <RatingBar
+                        android:id="@+id/ratingRecommended"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -143,6 +148,17 @@
                         android:isIndicator="true"
                         android:numStars="5"
                         android:rating="4.5" />
+
+                    <TextView
+                        android:id="@+id/ratingCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:maxLines="1"
+                        android:text="(10) Đánh giá"
+                        android:textColor="#606060"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
 
                 </LinearLayout>
 

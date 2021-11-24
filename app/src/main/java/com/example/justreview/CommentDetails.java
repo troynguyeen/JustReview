@@ -128,7 +128,7 @@ public class CommentDetails extends AppCompatActivity {
             ConstraintLayout constraintLayout = findViewById(R.id.parentConstraintLayout);
             ConstraintSet constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
-            constraintSet.connect(R.id.down_arrow,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
+//            constraintSet.connect(R.id.down_arrow,ConstraintSet.TOP, R.id.lvComment,ConstraintSet.BOTTOM,50);
             constraintSet.applyTo(constraintLayout);
         }
 
@@ -274,7 +274,7 @@ public class CommentDetails extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(),Integer.toString(review.theloai),Toast.LENGTH_SHORT).show();
         Cursor cursor2 = database.query("DanhMuc", null, null, null, null, null, null);
         while (cursor2.moveToNext()){
-            if(cursor2.getInt(0) == review.theloai + 1 ){
+            if(cursor2.getInt(0) == review.theloai ){
                 theLoaiV.setText(cursor2.getString(1));
             }
 
@@ -418,6 +418,11 @@ public class CommentDetails extends AppCompatActivity {
             totalStar += cmt.getScore();
         }
         totalRatingStar.setRating((float) totalStar / comments.size());
+
+        // Update total rating to Review
+        ContentValues values = new ContentValues();
+        values.put("DanhGia", (float) totalStar / comments.size());
+        database.update("DanhSachReview", values, "ID = " + currentExtras, null);
 
         adapter_comment listAdapterComment = new adapter_comment(comments, getApplicationContext());
         lvComment.setAdapter(listAdapterComment);

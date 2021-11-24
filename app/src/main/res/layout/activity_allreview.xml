@@ -48,7 +48,7 @@
     <ListView
         android:id="@+id/LvReview"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
+        android:layout_height="700dp"
         android:layout_marginTop="50dp"
         android:paddingTop="10sp"
         app:layout_constraintEnd_toEndOf="parent"

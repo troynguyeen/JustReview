@@ -52,7 +52,13 @@
             android:name=".FavoriteActivity"
             android:exported="true" />
         <activity
+            android:name=".AdminInformationActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginAdminActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ShowDm"
             android:exported="true" />
 
     </application>
