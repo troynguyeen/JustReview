@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,10 +15,14 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class CategoryActivity extends AppCompatActivity {
     SmoothBottomBar smoothBottomBar;
     Button btnIT,btnAV,btnVH;
+    private SharedPreferenceConfig sharedPreferenceConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(2);
@@ -36,7 +41,19 @@ public class CategoryActivity extends AppCompatActivity {
                         switchPage(new CategoryActivity());
                         break;
                     case 3:
-                        switchPage(new UserLoginActivity());
+                        if(sharedPreferenceConfig.read_login_status() == false){
+                            switchPage(new UserLoginActivity());
+                            finish();
+                        }else{
+                            if(sharedPreferenceConfig.read_admin_status() == true){
+                                switchPage(new AdminInformationActivity());
+                                finish();
+                            }else{
+                                switchPage(new UserInformationActivity());
+                                finish();
+                            }
+                        }
+
                         break;
                     default:
                         switchPage(new MainActivity());

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class FavoriteActivity extends AppCompatActivity {
     SmoothBottomBar smoothBottomBar;
     ListView lvFavorite;
     ArrayList<Review> fvr;
+    ImageView favouriteLogo;
     TextView notification;
     ArrayList<Integer> danhsachReview;
     String dbName = "JustReviewDatabase.db";
@@ -38,12 +40,10 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
 
         notification = (TextView) findViewById(R.id.favouriteNotification);
+        favouriteLogo = findViewById(R.id.favouriteLogo);
         lvFavorite = (ListView) findViewById(R.id.LvReview2);
         database = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
         sharedPreferenceConfig = new SharedPreferenceConfig(getApplicationContext());
-
-        danhsachReview = new ArrayList<Integer>();
-
 
         smoothBottomBar = (SmoothBottomBar) findViewById(R.id.smoothBottomBar);
         smoothBottomBar.setItemActiveIndex(1);
@@ -67,12 +67,16 @@ public class FavoriteActivity extends AppCompatActivity {
                         break;
                     case 3:
                         if(sharedPreferenceConfig.read_login_status() == false){
-
-                        }else{
-
-                            switchPage(new UserInformationActivity());
+                            switchPage(new UserLoginActivity());
                             finish();
-
+                        }else{
+                            if(sharedPreferenceConfig.read_admin_status() == true){
+                                switchPage(new AdminInformationActivity());
+                                finish();
+                            }else{
+                                switchPage(new UserInformationActivity());
+                                finish();
+                            }
                         }
 
                         break;
@@ -87,34 +91,44 @@ public class FavoriteActivity extends AppCompatActivity {
 
 
         if (sharedPreferenceConfig.read_user_id() != 0) {
-            notification.setVisibility(View.INVISIBLE);
-            Cursor cursor = database.query("DanhSachYeuThich", null, null, null, null, null, null);
+            danhsachReview = new ArrayList<Integer>();
+
+            Cursor cursor = database.rawQuery("SELECT * FROM DanhSachYeuThich WHERE IDUser = " + sharedPreferenceConfig.read_user_id(), null);
             while (cursor.moveToNext()) {
-                if (cursor.getInt(1) == sharedPreferenceConfig.read_user_id()) {
-                    danhsachReview.add(cursor.getInt(2));
-                }
+                danhsachReview.add(cursor.getInt(2));
             }
 
-            cursor = database.query("DanhSachReview", null, null, null, null, null, null);
-            while (cursor.moveToNext()) {
-                for (int i = 0; i < danhsachReview.size(); i++) {
-                    if (cursor.getInt(0) == danhsachReview.get(i)) {
-                        Review review = new Review();
-                        review.image = cursor.getBlob(3);
-                        review.name = cursor.getString(1);
-                        review.id = cursor.getInt(0);
-                        fvr.add(review);
+            if(danhsachReview.size() == 0) {
+                favouriteLogo.setImageResource(R.drawable.wishlist);
+                favouriteLogo.getLayoutParams().width = 750;
+                notification.setText("Bạn chưa có bài review yêu thích!");
+            }
+            else {
+                notification.setVisibility(View.INVISIBLE);
+                favouriteLogo.setVisibility(View.INVISIBLE);
+
+                cursor = database.query("DanhSachReview", null, null, null, null, null, null);
+                while (cursor.moveToNext()) {
+                    for (int i = 0; i < danhsachReview.size(); i++) {
+                        if (cursor.getInt(0) == danhsachReview.get(i)) {
+                            Review review = new Review();
+                            review.image = cursor.getBlob(3);
+                            review.name = cursor.getString(1);
+                            review.id = cursor.getInt(0);
+                            fvr.add(review);
+                        }
                     }
+
                 }
 
+                AllReviewAdapter listAdapterFavorite = new AllReviewAdapter(fvr, getApplicationContext());
+                lvFavorite.setAdapter(listAdapterFavorite);
             }
-
-            AllReviewAdapter listAdapterFavorite = new AllReviewAdapter(fvr, getApplicationContext());
-            lvFavorite.setAdapter(listAdapterFavorite);
-
-
-        } else {
-            notification.setVisibility(View.VISIBLE);
+        }
+        else if(sharedPreferenceConfig.read_admin_status()) {
+            favouriteLogo.setImageResource(R.drawable.user_only);
+            favouriteLogo.getLayoutParams().width = 1200;
+            notification.setText("Chức năng chỉ dành cho User!");
         }
 
         lvFavorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
