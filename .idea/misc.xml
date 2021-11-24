@@ -6,8 +6,11 @@
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2875" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable-v24/top_button_background.xml" value="0.3769230769230769" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_bookmark.xml" value="0.3769230769230769" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_border.xml" value="0.3828125" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_favorite.xml" value="0.3828125" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_gradient.xml" value="0.3592592592592593" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_gradient_guest.xml" value="0.25092592592592594" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_gradient_user.xml" value="0.39479166666666665" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_search.xml" value="0.3828125" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/background_share.xml" value="0.3769230769230769" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/drawable/ic_arrow_down.xml" value="0.3828125" />
@@ -36,7 +39,7 @@
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_sach_adapter.xml" value="0.33" />
-        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_user_information.xml" value="0.2786458333333333" />
+        <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/activity_user_information.xml" value="0.33" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/edit_comment_background.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/edit_text_background.xml" value="0.36666666666666664" />
         <entry key="..\:/AndroidStudio/JustReview/app/src/main/res/layout/fragment_blank.xml" value="0.36666666666666664" />

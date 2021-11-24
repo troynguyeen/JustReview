@@ -155,16 +155,31 @@ public class MainActivity extends AppCompatActivity implements
                 userNameSideNavigation = findViewById(R.id.userNameTopBar);
                 if(sharedPreferenceConfig.read_login_status() == false){
                     userNameSideNavigation.setText("Khách");
+                    TextView role = findViewById(R.id.role);
+                    role.setVisibility(View.INVISIBLE);
+                    ConstraintLayout sidebar = (ConstraintLayout) findViewById(R.id.sidebar);
+                    sidebar.setBackgroundResource(R.drawable.background_gradient_guest);
+
                 }else{
                     if(sharedPreferenceConfig.read_admin_status() == true){
-                        userNameSideNavigation.setText("Quản trị viên");
-                    }else{
+                        Cursor cursor = database.query("TaiKhoanAdmin", null, null, null, null, null, null);
+                        while(cursor.moveToNext()){
+                            if(cursor.getInt(0) == sharedPreferenceConfig.read_admin_id()){
+                                userNameSideNavigation.setText(cursor.getString(3));
+                            }
+                        }
+                    }
+                    else{
                         Cursor cursor = database.query("TaiKhoanUser", null, null, null, null, null, null);
                         while(cursor.moveToNext()){
                             if(cursor.getInt(0) == sharedPreferenceConfig.read_user_id()){
                                 userNameSideNavigation.setText(cursor.getString(3));
                             }
                         }
+                        TextView role = findViewById(R.id.role);
+                        role.setVisibility(View.INVISIBLE);
+                        ConstraintLayout sidebar = (ConstraintLayout) findViewById(R.id.sidebar);
+                        sidebar.setBackgroundResource(R.drawable.background_gradient_user);
                     }
                 }
             }
@@ -213,8 +228,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 3:
                         if(sharedPreferenceConfig.read_login_status() == false){
-                            switchPage(new LoginAdminActivity());
-
+                            switchPage(new UserLoginActivity());
                             finish();
                         }else{
                             if(sharedPreferenceConfig.read_admin_status() == true){
@@ -342,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements
 
         int idMaxRate = 0;
 
-        Cursor commentCursor = database.rawQuery("SELECT CountTable.IDDanhSachReview, MAX(CountTable.ratingCount), CountTable.totalRating FROM (SELECT IDDanhSachReview, COUNT(IDDanhSachReview) as ratingCount, SUM(DiemDanhGia) as totalRating FROM BinhLuan GROUP BY IDDanhSachReview) CountTable",null);
+        Cursor commentCursor = database.rawQuery("SELECT CountTable.IDDanhSachReview, CountTable.ratingCount, MAX(CountTable.ratingCount), MAX(CountTable.totalRating) FROM (SELECT IDDanhSachReview, COUNT(IDDanhSachReview) as ratingCount, SUM(DiemDanhGia) as totalRating FROM BinhLuan GROUP BY IDDanhSachReview) CountTable",null);
 
         while(commentCursor.moveToNext()) {
             idMaxRate = commentCursor.getInt(0);
