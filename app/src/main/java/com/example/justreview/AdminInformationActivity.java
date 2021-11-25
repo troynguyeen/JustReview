@@ -79,6 +79,7 @@ public class AdminInformationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AdminInformationActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -115,6 +116,7 @@ public class AdminInformationActivity extends AppCompatActivity {
             Toast.makeText(this, "Cập nhật thông tin Admin thành công!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AdminInformationActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();

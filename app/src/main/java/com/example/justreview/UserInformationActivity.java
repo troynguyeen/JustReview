@@ -78,6 +78,7 @@ public class UserInformationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(UserInformationActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -114,6 +115,7 @@ public class UserInformationActivity extends AppCompatActivity {
             Toast.makeText(this, "Cập nhật thông tin User thành công!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(UserInformationActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
