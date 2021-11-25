@@ -79,6 +79,8 @@ public class RegisterActivity extends AppCompatActivity
                             Boolean insert = insertData(user, pass, repass, name, date, sex);
                             if (insert == true) {
                                 Toast.makeText(RegisterActivity.this, "Đăng ký thành công",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), UserLoginActivity.class);
+                                startActivity(intent);
                                 finish();
                             } else {
                                 Toast.makeText(RegisterActivity.this,"Đăng ký thất bại", Toast.LENGTH_SHORT).show();
