@@ -246,9 +246,8 @@ public class CommentDetails extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Xóa Thành Công", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                finish();
                 startActivity(intent);
-
+                finish();
 
             }
         });
@@ -480,5 +479,6 @@ public class CommentDetails extends AppCompatActivity {
         intent.putExtra("ID", review.id);
 
         startActivity(intent);
+        finish();
     }
 }
