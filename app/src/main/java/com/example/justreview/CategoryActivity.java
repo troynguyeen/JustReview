@@ -150,6 +150,7 @@ public class CategoryActivity extends AppCompatActivity implements
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
                 intent.putExtra("DM",1);
                 startActivity(intent);
+                finish();
             }
         });
         btnAV=findViewById(R.id.btnAV);
@@ -159,6 +160,7 @@ public class CategoryActivity extends AppCompatActivity implements
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
                 intent.putExtra("DM",2);
                 startActivity(intent);
+                finish();
             }
         });
         btnVH=findViewById(R.id.btnVH);
@@ -168,6 +170,7 @@ public class CategoryActivity extends AppCompatActivity implements
                 Intent intent=new Intent(getApplicationContext(),ShowDm.class);
                 intent.putExtra("DM",3);
                 startActivity(intent);
+                finish();
             }
         });
     }
