@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +22,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class UserInformationActivity extends AppCompatActivity {
+    RadioGroup genderEditProfile;
+    RadioButton genderNam, genderNu, genderKhac;
     TextView userName;
-    EditText nameEditProfile, genderEditProfile, dobEditProfile, passwordEditProfile;
+    EditText nameEditProfile, dobEditProfile, passwordOldEditProfile, passwordNewEditProfile;
     Button saveProfile, cancelProfile;
     SharedPreferenceConfig share;
     private String dbName = "JustReviewDatabase.db";
@@ -38,8 +42,12 @@ public class UserInformationActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         nameEditProfile = findViewById(R.id.nameEditProfile);
         genderEditProfile = findViewById(R.id.genderEditProfile);
+        genderNam = findViewById(R.id.genderNam);
+        genderNu = findViewById(R.id.genderNu);
+        genderKhac = findViewById(R.id.genderKhac);
         dobEditProfile = findViewById(R.id.dobEditProfile);
-        passwordEditProfile = findViewById(R.id.passwordEditProfile);
+        passwordOldEditProfile = findViewById(R.id.passwordOldEditProfile);
+        passwordNewEditProfile = findViewById(R.id.passwordNewEditProfile);
         saveProfile = findViewById(R.id.saveProfile);
         cancelProfile = findViewById(R.id.cancelProfile);
 
@@ -91,8 +99,18 @@ public class UserInformationActivity extends AppCompatActivity {
             userName.setText(profileCursor.getString(1));
             nameEditProfile.setText(profileCursor.getString(3));
             dobEditProfile.setText(profileCursor.getString(4));
-            genderEditProfile.setText(profileCursor.getString(5));
-            passwordEditProfile.setText(profileCursor.getString(2));
+
+            switch (profileCursor.getString(5)) {
+                case "Nam":
+                    genderNam.setChecked(true);
+                    break;
+                case "Nữ":
+                    genderNu.setChecked(true);
+                    break;
+                default:
+                    genderKhac.setChecked(true);
+
+            }
         }
     }
 
@@ -100,22 +118,52 @@ public class UserInformationActivity extends AppCompatActivity {
         int idUser = share.read_user_id();
 
         if(nameEditProfile.getText().length() > 0
-                && genderEditProfile.getText().length() > 0
-                && dobEditProfile.getText().length() > 0
-                && passwordEditProfile.getText().length() > 0) {
+            && (int) genderEditProfile.getCheckedRadioButtonId() > 0
+            && dobEditProfile.getText().length() > 0) {
 
             ContentValues values = new ContentValues();
-            values.put("TenUSer", nameEditProfile.getText().toString());
-            values.put("GioiTinh", genderEditProfile.getText().toString());
+            values.put("TenUser", nameEditProfile.getText().toString());
             values.put("NgaySinh", dobEditProfile.getText().toString());
-            values.put("MatKhau", passwordEditProfile.getText().toString());
 
-            database.update("TaiKhoanUser", values, "ID = " + idUser, null);
+            //Get selected radio button
+            int genderId = genderEditProfile.getCheckedRadioButtonId();
+            RadioButton radioButton = findViewById(genderId);
+            values.put("GioiTinh", radioButton.getText().toString());
 
-            Toast.makeText(this, "Cập nhật thông tin User thành công!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UserInformationActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            // Get password old
+            Cursor profileCursor = database.rawQuery("SELECT * FROM TaiKhoanUser WHERE ID = " + idUser, null);
+
+            String passwordOld = "";
+            while (profileCursor.moveToNext()) {
+                passwordOld = profileCursor.getString(2);
+            }
+
+            if(passwordOldEditProfile.getText().toString().length() > 0 || passwordNewEditProfile.getText().toString().length() > 0){
+                if(passwordNewEditProfile.getText().toString().length() == 0) {
+                    Toast.makeText(this, "Mật khẩu mới không được để trống!", Toast.LENGTH_SHORT).show();
+                }
+                else if(passwordOldEditProfile.getText().toString().equals(passwordNewEditProfile.getText().toString())) {
+                    Toast.makeText(this, "Mật khẩu cũ và mật khẩu mới không được trùng nhau!", Toast.LENGTH_SHORT).show();
+                }
+                else if(!passwordOldEditProfile.getText().toString().equals(passwordOld)) {
+                    Toast.makeText(this, "Mật khẩu cũ không hợp lệ vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    values.put("MatKhau", passwordNewEditProfile.getText().toString());
+                    database.update("TaiKhoanUser", values, "ID = " + idUser, null);
+                    Toast.makeText(this, "Cập nhật thông tin User thành công!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UserInformationActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+            else {
+                database.update("TaiKhoanUser", values, "ID = " + idUser, null);
+                Toast.makeText(this, "Cập nhật thông tin User thành công!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UserInformationActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
         else {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
